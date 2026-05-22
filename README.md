@@ -146,6 +146,14 @@ python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph 
 
 This local-only harness deploys `SubgraphService` through an `ERC1967Proxy`, uses a mock Graph controller, and checks that non-owners cannot change economic settings while the owner can.
 
+First registration gate slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id REGISTER-ACCESS-001 --run-id real-subgraphservice-register-access-001
+```
+
+This local-only harness adds mock Horizon staking and dispute-manager dependencies, then checks that an authorized indexer with a valid provision can register while unauthorized or unprovisioned registration attempts revert.
+
 Possible statuses include `compile_failed`, `harness_needs_mocks`, `test_failed`, `invariant_failed_promising`, and `clean`.
 
 Compile failures are harness work, not security findings.
