@@ -128,6 +128,18 @@ Then run it:
 python -m backend.hotspot_hub.cli worker run queues/thegraph-hotspots.worker.json
 ```
 
+Check LM Studio connectivity:
+
+```powershell
+python -m backend.hotspot_hub.cli llm ping
+```
+
+Generate a queue that sends hotspots to the local model:
+
+```powershell
+python -m backend.hotspot_hub.cli worker generate targets/thegraph/code-map/hotspot-report.json --out queues/thegraph-local-llm.worker.json --max-hotspots 5 --mode local-llm
+```
+
 ## Add A New Bounty
 
 ```powershell

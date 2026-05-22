@@ -53,7 +53,17 @@ The CLI can now convert a ranked hotspot report into worker jobs:
 python -m backend.hotspot_hub.cli worker generate targets/thegraph/code-map/hotspot-report.json --out queues/thegraph-hotspots.worker.json --max-hotspots 5
 ```
 
-Default mode creates prompt-artifact jobs. `--mode foundry-scaffold` creates jobs for the existing generated Foundry validation slice.
+Default mode creates prompt-artifact jobs.
+
+Use `--mode local-llm` to send each hotspot to the LM Studio local model.
+
+Use `--mode foundry-scaffold` to create jobs for the existing generated Foundry validation slice.
+
+Local model health check:
+
+```powershell
+python -m backend.hotspot_hub.cli llm ping
+```
 
 ## Practical Goal
 

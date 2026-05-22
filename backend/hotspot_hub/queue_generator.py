@@ -20,8 +20,8 @@ def generate_hotspot_worker_queue(
     timeout_seconds: int = 180,
 ) -> dict[str, Any]:
     """Generate a bounded local-only worker queue from a Hotspot Hub report."""
-    if mode not in {"prompt", "foundry-scaffold"}:
-        raise ValueError("Queue mode must be 'prompt' or 'foundry-scaffold'")
+    if mode not in {"prompt", "local-llm", "foundry-scaffold"}:
+        raise ValueError("Queue mode must be 'prompt', 'local-llm', or 'foundry-scaffold'")
 
     report = json.loads(report_path.read_text(encoding="utf-8"))
     hotspots = report.get("hotspots", [])[:max_hotspots]
@@ -42,6 +42,18 @@ def generate_hotspot_worker_queue(
                 path,
             ]
             notes = "Build a compact LLM-ready analysis prompt for this ranked hotspot."
+            cwd = "."
+        elif mode == "local-llm":
+            command = [
+                "python",
+                "-m",
+                "backend.hotspot_hub.cli",
+                "llm",
+                "analyze-hotspot",
+                str(report_path),
+                path,
+            ]
+            notes = "Analyze this ranked hotspot with the local LM Studio model."
             cwd = "."
         else:
             command = [

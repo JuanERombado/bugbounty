@@ -9,6 +9,7 @@ from pathlib import Path
 from .engine import HotspotEngine
 from .foundry_harness_generator import generate_foundry_scaffold
 from .hypothesis_queue import default_invariant_candidates, make_run_id, write_queue
+from .local_llm import analyze_hotspot, analyze_prompt_file, ping_local_llm
 from .prompt_builder import build_hotspot_prompt
 from .queue_generator import generate_hotspot_worker_queue
 from .result_judge import judge_foundry_result
@@ -136,6 +137,41 @@ def worker_generate_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def llm_ping_command(args: argparse.Namespace) -> int:
+    result = ping_local_llm(args.base_url, args.model, args.timeout)
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+def llm_analyze_prompt_command(args: argparse.Namespace) -> int:
+    result = analyze_prompt_file(
+        args.prompt_json,
+        args.out,
+        args.base_url,
+        args.model,
+        args.temperature,
+        args.max_tokens,
+        args.timeout,
+    )
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+def llm_analyze_hotspot_command(args: argparse.Namespace) -> int:
+    result = analyze_hotspot(
+        args.report,
+        args.path,
+        args.out,
+        args.base_url,
+        args.model,
+        args.temperature,
+        args.max_tokens,
+        args.timeout,
+    )
+    print(json.dumps(result, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Local Hotspot Hub backend")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -193,12 +229,42 @@ def build_parser() -> argparse.ArgumentParser:
     worker_generate.add_argument("--max-hotspots", type=int, default=5, help="Maximum ranked hotspots to queue")
     worker_generate.add_argument(
         "--mode",
-        choices=["prompt", "foundry-scaffold"],
+        choices=["prompt", "local-llm", "foundry-scaffold"],
         default="prompt",
-        help="Queue prompt artifacts or generated Foundry scaffold runs",
+        help="Queue prompt artifacts, local LLM analysis, or generated Foundry scaffold runs",
     )
     worker_generate.add_argument("--timeout", type=int, default=180, help="Timeout per generated job in seconds")
     worker_generate.set_defaults(func=worker_generate_command)
+
+    llm = subparsers.add_parser("llm", help="Use a local OpenAI-compatible LLM server")
+    llm_subparsers = llm.add_subparsers(dest="llm_command", required=True)
+
+    llm_ping = llm_subparsers.add_parser("ping", help="Check local LLM connectivity")
+    llm_ping.add_argument("--base-url", default="http://127.0.0.1:1234/v1")
+    llm_ping.add_argument("--model", default="qwen/qwen3.5-9b")
+    llm_ping.add_argument("--timeout", type=int, default=60)
+    llm_ping.set_defaults(func=llm_ping_command)
+
+    llm_prompt = llm_subparsers.add_parser("analyze-prompt", help="Send a saved prompt JSON to the local LLM")
+    llm_prompt.add_argument("prompt_json", type=Path)
+    llm_prompt.add_argument("--out", type=Path)
+    llm_prompt.add_argument("--base-url", default="http://127.0.0.1:1234/v1")
+    llm_prompt.add_argument("--model", default="qwen/qwen3.5-9b")
+    llm_prompt.add_argument("--temperature", type=float, default=0.2)
+    llm_prompt.add_argument("--max-tokens", type=int, default=1400)
+    llm_prompt.add_argument("--timeout", type=int, default=300)
+    llm_prompt.set_defaults(func=llm_analyze_prompt_command)
+
+    llm_hotspot = llm_subparsers.add_parser("analyze-hotspot", help="Build and analyze one hotspot prompt locally")
+    llm_hotspot.add_argument("report", type=Path)
+    llm_hotspot.add_argument("path", help="Hotspot path from the report JSON")
+    llm_hotspot.add_argument("--out", type=Path)
+    llm_hotspot.add_argument("--base-url", default="http://127.0.0.1:1234/v1")
+    llm_hotspot.add_argument("--model", default="qwen/qwen3.5-9b")
+    llm_hotspot.add_argument("--temperature", type=float, default=0.2)
+    llm_hotspot.add_argument("--max-tokens", type=int, default=1400)
+    llm_hotspot.add_argument("--timeout", type=int, default=300)
+    llm_hotspot.set_defaults(func=llm_analyze_hotspot_command)
 
     return parser
 

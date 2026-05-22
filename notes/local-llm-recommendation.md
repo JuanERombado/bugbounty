@@ -62,8 +62,20 @@ Use Codex/Gemini only for compact evidence packages, difficult reasoning, and re
 - Expect 24B+ models to be slower on Windows AMD than NVIDIA CUDA systems.
 - If long-running worker throughput matters, Linux/ROCm or WSL2 may outperform native Windows.
 
-## Next Build Step
+## Local Adapter
 
-Add an OpenAI-compatible local provider adapter for LM Studio, then point worker prompt jobs at `http://localhost:1234/v1/chat/completions`.
+The workbench has an OpenAI-compatible LM Studio adapter.
 
-Start with `Qwen3.5-9B` for throughput, then benchmark `Devstral-Small-2-24B-Instruct` against the same queue artifacts before deciding the default.
+Health check:
+
+```powershell
+python -m backend.hotspot_hub.cli llm ping
+```
+
+Generate local-LLM worker jobs:
+
+```powershell
+python -m backend.hotspot_hub.cli worker generate targets/thegraph/code-map/hotspot-report.json --out queues/thegraph-local-llm.worker.json --mode local-llm --max-hotspots 5
+```
+
+Next, benchmark `Qwen3.5-9B` against `Devstral-Small-2-24B-Instruct` on the same queue artifacts before deciding the default.
