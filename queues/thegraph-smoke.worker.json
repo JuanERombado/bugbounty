@@ -1,0 +1,36 @@
+{
+  "run_id": "thegraph-worker-smoke-001",
+  "target": "thegraph",
+  "stop_on_promising": false,
+  "jobs": [
+    {
+      "job_id": "tool-status",
+      "kind": "command",
+      "cwd": ".",
+      "command": [
+        "python",
+        "-m",
+        "backend.hotspot_hub.cli",
+        "tools",
+        "status"
+      ],
+      "timeout_seconds": 120,
+      "notes": "Confirm local tool visibility before longer worker jobs."
+    },
+    {
+      "job_id": "subgraphservice-h3-replay-and-actor-gates",
+      "kind": "command",
+      "cwd": "external/thegraph-contracts/packages/subgraph-service",
+      "command": [
+        "forge",
+        "test",
+        "--match-test",
+        "test_SubgraphService_UpdateIndexingAgreement_InvalidSignerDoesNotPersistOverflowTerms|test_SubgraphService_UpdateIndexingAgreement_ReplayDoesNotRestoreOverflowTerms",
+        "-vv"
+      ],
+      "timeout_seconds": 300,
+      "hypothesis_id": "SUBGRAPH-INV-3",
+      "notes": "Re-run the latest local rejection gates for the SubgraphService entity-fee overflow branch."
+    }
+  ]
+}

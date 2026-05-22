@@ -104,6 +104,18 @@ Artifacts are written to:
 
 A passing generated scaffold is not report evidence; it only proves the local validation loop works.
 
+## Local Research Worker
+
+Run bounded local jobs without manually approving each hypothesis step:
+
+```powershell
+python -m backend.hotspot_hub.cli worker run queues/thegraph-smoke.worker.json
+```
+
+Worker results are written under `targets/<target>/runs/<run-id>/`.
+
+The worker is for local evidence production only; use local or frontier LLMs to review compact artifacts after deterministic tools run.
+
 ## Add A New Bounty
 
 ```powershell

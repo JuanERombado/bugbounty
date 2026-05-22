@@ -14,6 +14,7 @@ from .result_judge import judge_foundry_result
 from .target_initializer import initialize_target
 from .test_runner import run_foundry_tests
 from .tool_status import collect_tool_status
+from .worker import run_worker_queue
 
 
 def scan_command(args: argparse.Namespace) -> int:
@@ -115,6 +116,12 @@ def foundry_slice_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def worker_run_command(args: argparse.Namespace) -> int:
+    summary = run_worker_queue(args.queue, Path.cwd(), args.out_dir, args.max_jobs)
+    print(json.dumps(summary, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Local Hotspot Hub backend")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -155,6 +162,15 @@ def build_parser() -> argparse.ArgumentParser:
     foundry.add_argument("--run-id", help="Optional stable run id")
     foundry.add_argument("--timeout", type=int, default=180, help="Forge test timeout in seconds")
     foundry.set_defaults(func=foundry_slice_command)
+
+    worker = subparsers.add_parser("worker", help="Run bounded local research jobs from a queue")
+    worker_subparsers = worker.add_subparsers(dest="worker_command", required=True)
+
+    worker_run = worker_subparsers.add_parser("run", help="Run a JSON worker queue")
+    worker_run.add_argument("queue", type=Path, help="Path to worker queue JSON")
+    worker_run.add_argument("--out-dir", type=Path, help="Optional output directory for run artifacts")
+    worker_run.add_argument("--max-jobs", type=int, help="Optional maximum jobs to run from the queue")
+    worker_run.set_defaults(func=worker_run_command)
 
     return parser
 
