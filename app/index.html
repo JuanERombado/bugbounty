@@ -28,6 +28,7 @@
 
         <nav class="nav-list">
           <button class="nav-button active" data-view="newproject">New Project</button>
+          <button class="nav-button" data-view="worker">Worker Console</button>
           <button class="nav-button" data-view="submission">Submission Goal</button>
           <button class="nav-button" data-view="process">Process Map</button>
           <button class="nav-button" data-view="pipeline">Pipeline</button>
@@ -88,6 +89,36 @@
                 <div><strong>Next</strong><span>Review exact assets, impacts, exclusions, resources, and audit links before hunting.</span></div>
               </div>
             </section>
+          </div>
+        </section>
+
+        <section class="view" id="workerView" aria-labelledby="pageTitle">
+          <div class="worker-layout">
+            <section class="worker-command-center">
+              <div class="section-heading">
+                <h2>Run The Workbench</h2>
+                <p>Use these local-only actions to scan, queue, analyze, and monitor evidence jobs.</p>
+              </div>
+              <div class="quick-actions" id="quickActions"></div>
+              <div class="job-monitor">
+                <div class="monitor-header">
+                  <div>
+                    <h2>Active Jobs</h2>
+                    <p>Updates automatically while the server is running.</p>
+                  </div>
+                  <button class="secondary-action" id="refreshJobsButton" type="button">Refresh</button>
+                </div>
+                <div class="job-list" id="jobList"></div>
+              </div>
+            </section>
+            <aside class="worker-inspector">
+              <div class="section-heading">
+                <h2>Inspector</h2>
+                <p>Selected job output and current workspace state.</p>
+              </div>
+              <div class="status-grid" id="workspaceStatus"></div>
+              <pre class="job-output" id="jobOutput">Select or start a job to see output here.</pre>
+            </aside>
           </div>
         </section>
 

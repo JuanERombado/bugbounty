@@ -272,9 +272,51 @@ const analyzers = [
 
 let activeTarget = "thegraph";
 let activeSeverity = "Critical";
+let selectedJobId = null;
+let jobPollTimer = null;
+
+const quickActions = [
+  {
+    action: "llm_ping",
+    title: "Check LM Studio",
+    detail: "Confirms the local model server is reachable and returning usable content.",
+    command: "python -m backend.hotspot_hub.cli llm ping",
+  },
+  {
+    action: "tool_status",
+    title: "Check Tools",
+    detail: "Lists local scanners, fuzzers, Foundry, and disk usage.",
+    command: "python -m backend.hotspot_hub.cli tools status",
+  },
+  {
+    action: "scan_hotspots",
+    title: "Scan Hotspots",
+    detail: "Runs local complexity, Semgrep, and Slither triage into hotspot-report.json.",
+    command: "python -m backend.hotspot_hub.cli scan external/thegraph-contracts --out targets/thegraph/code-map/hotspot-report.json",
+  },
+  {
+    action: "generate_local_llm_queue",
+    title: "Build LLM Queue",
+    detail: "Turns top hotspots into local LM Studio analysis jobs.",
+    command: "python -m backend.hotspot_hub.cli worker generate ... --mode local-llm",
+  },
+  {
+    action: "run_local_llm_queue",
+    title: "Run LLM Queue",
+    detail: "Sends queued hotspots to the local model and captures artifacts.",
+    command: "python -m backend.hotspot_hub.cli worker run queues/thegraph-local-llm.worker.json",
+  },
+  {
+    action: "run_smoke_queue",
+    title: "Smoke Test",
+    detail: "Runs the safe worker smoke queue to verify the full loop.",
+    command: "python -m backend.hotspot_hub.cli worker run queues/thegraph-smoke.worker.json",
+  },
+];
 
 const views = {
   newproject: document.querySelector("#newprojectView"),
+  worker: document.querySelector("#workerView"),
   submission: document.querySelector("#submissionView"),
   process: document.querySelector("#processView"),
   pipeline: document.querySelector("#pipelineView"),
@@ -292,6 +334,7 @@ function setView(name) {
   });
   document.querySelector("#pageTitle").textContent = {
     newproject: "New Project",
+    worker: "Worker Console",
     pipeline: "Pipeline",
     process: "Process Map",
     submission: "Submission Goal",
@@ -300,6 +343,10 @@ function setView(name) {
     assets: "Asset Queue",
     local: "Local Analyzers",
   }[name];
+  if (name === "worker") {
+    refreshWorkbenchStatus();
+    startJobPolling();
+  }
 }
 
 function escapeHTML(value) {
@@ -577,6 +624,165 @@ function renderCommand(index) {
   document.querySelector("#commandOutput").textContent = `${analyzer.name}\n\n${analyzer.command}\n\n${analyzer.note}\n\nSafety: run only against local files, local tests, or local forks.`;
 }
 
+function renderQuickActions() {
+  const container = document.querySelector("#quickActions");
+  container.innerHTML = quickActions
+    .map(
+      (item) => `
+        <button class="quick-action" data-action="${item.action}" type="button">
+          <strong>${item.title}</strong>
+          <span>${item.detail}</span>
+          <code>${item.command}</code>
+        </button>
+      `,
+    )
+    .join("");
+  container.addEventListener("click", async (event) => {
+    const button = event.target.closest("button[data-action]");
+    if (!button) return;
+    await startDashboardJob(button.dataset.action);
+  });
+}
+
+async function startDashboardJob(action) {
+  setJobOutput(`Starting ${action}...\n\nThe server will run this as a bounded local-only job.`);
+  try {
+    const response = await fetch("/api/jobs/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action }),
+    });
+    const payload = await response.json();
+    if (!payload.ok) {
+      setJobOutput(`Could not start job.\n\n${payload.error || "Unknown error"}`);
+      return;
+    }
+    selectedJobId = payload.job.id;
+    renderJobList([payload.job]);
+    startJobPolling();
+    await refreshJobs();
+  } catch (error) {
+    setJobOutput("Dashboard API is not running.\n\nStart it with:\npython -m backend.hotspot_hub.server --host 127.0.0.1 --port 4173");
+  }
+}
+
+function startJobPolling() {
+  if (jobPollTimer) return;
+  jobPollTimer = window.setInterval(refreshJobs, 1500);
+  refreshJobs();
+}
+
+async function refreshWorkbenchStatus() {
+  try {
+    const response = await fetch("/api/status");
+    const payload = await response.json();
+    if (!payload.ok) return;
+    renderWorkspaceStatus(payload);
+    renderRecentRuns(payload.latest_runs || []);
+  } catch (error) {
+    document.querySelector("#workspaceStatus").innerHTML = `
+      <div class="status-item warn"><strong>Server</strong><span>Not reachable</span></div>
+    `;
+  }
+}
+
+function renderWorkspaceStatus(payload) {
+  const items = [
+    ["LM Studio", payload.lm_studio_url],
+    ["Hotspot report", payload.hotspot_report_exists ? "Ready" : "Missing"],
+    ["Local LLM queue", payload.local_llm_queue_exists ? "Ready" : "Missing"],
+    ["Workspace", payload.workspace],
+  ];
+  document.querySelector("#workspaceStatus").innerHTML = items
+    .map(([label, value]) => `<div class="status-item"><strong>${escapeHTML(label)}</strong><span>${escapeHTML(value)}</span></div>`)
+    .join("");
+}
+
+function renderRecentRuns(runs) {
+  const output = document.querySelector("#jobOutput");
+  if (selectedJobId || !runs.length || output.dataset.touched === "true") return;
+  output.textContent = `Recent runs\n\n${runs
+    .map((run) => `${run.name}\n  modified: ${run.modified}\n  worker summary: ${run.has_worker_summary ? "yes" : "no"}\n  judgment: ${run.has_judgment ? "yes" : "no"}`)
+    .join("\n\n")}`;
+}
+
+async function refreshJobs() {
+  try {
+    const response = await fetch("/api/jobs");
+    const payload = await response.json();
+    if (!payload.ok) return;
+    renderJobList(payload.jobs || []);
+    if (selectedJobId) await refreshSelectedJob(selectedJobId);
+    await refreshWorkbenchStatus();
+  } catch (error) {
+    renderJobList([]);
+  }
+}
+
+async function refreshSelectedJob(jobId) {
+  try {
+    const response = await fetch(`/api/jobs/${jobId}`);
+    const payload = await response.json();
+    if (!payload.ok) return;
+    renderJobOutput(payload.job);
+  } catch (error) {
+    setJobOutput("Could not refresh selected job.");
+  }
+}
+
+function renderJobList(jobs) {
+  const list = document.querySelector("#jobList");
+  if (!jobs.length) {
+    list.innerHTML = `<div class="empty-state">No jobs started in this dashboard session.</div>`;
+    return;
+  }
+  list.innerHTML = jobs
+    .map(
+      (job) => `
+        <button class="job-row ${job.id === selectedJobId ? "active" : ""}" data-job-id="${job.id}" type="button">
+          <span class="job-state ${job.status}">${job.status}</span>
+          <strong>${escapeHTML(job.label)}</strong>
+          <span>${escapeHTML(job.elapsed_seconds ? `${job.elapsed_seconds}s` : job.created_at)}</span>
+        </button>
+      `,
+    )
+    .join("");
+  list.querySelectorAll("button[data-job-id]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      selectedJobId = button.dataset.jobId;
+      await refreshSelectedJob(selectedJobId);
+      refreshJobs();
+    });
+  });
+}
+
+function renderJobOutput(job) {
+  const command = job.command?.join(" ") || "";
+  setJobOutput(`${job.label}
+
+Status: ${job.status}
+Return code: ${job.returncode ?? "pending"}
+Elapsed: ${job.elapsed_seconds ?? "pending"}s
+CWD: ${job.cwd}
+
+Command:
+${command}
+
+STDOUT:
+${job.stdout || "(empty)"}
+
+STDERR:
+${job.stderr || "(empty)"}
+
+${job.error ? `ERROR:\n${job.error}` : ""}`);
+}
+
+function setJobOutput(value) {
+  const output = document.querySelector("#jobOutput");
+  output.dataset.touched = "true";
+  output.textContent = value;
+}
+
 document.querySelectorAll(".nav-button").forEach((button) => {
   button.addEventListener("click", () => setView(button.dataset.view));
 });
@@ -589,9 +795,15 @@ document.querySelector("#targetSelect").addEventListener("change", (event) => {
 
 renderSubmissionGoal();
 initializeProjectForm();
+renderQuickActions();
 renderProcessMap();
 renderPipeline();
 renderSeverities();
 renderExperts();
 renderAssets();
 renderAnalyzers();
+document.querySelector("#refreshJobsButton").addEventListener("click", () => {
+  refreshWorkbenchStatus();
+  refreshJobs();
+});
+refreshWorkbenchStatus();
