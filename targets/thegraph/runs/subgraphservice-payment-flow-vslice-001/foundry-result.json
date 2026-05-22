@@ -1,0 +1,14 @@
+{
+  "runner": "foundry",
+  "project_dir": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\targets\\thegraph\\pocs\\generated\\subgraphservice-payment-flow-vslice-001",
+  "command": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\forge.exe",
+    "test",
+    "-vv"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 1.463,
+  "stdout": "Compiling 2 files with Solc 0.8.27\nSolc 0.8.27 finished in 136.35ms\nCompiler run successful!\n\nRan 3 tests for test/GeneratedInvariant.t.sol:GeneratedInvariantTest\n[PASS] test_INV_1_valueConservationSkeleton() (gas: 76105)\n[PASS] test_INV_2_authorizationSkeleton() (gas: 8490)\n[PASS] test_INV_3_boundedRateSkeleton() (gas: 76086)\nSuite result: ok. 3 passed; 0 failed; 0 skipped; finished in 693.70\u00c2\u00b5s (676.10\u00c2\u00b5s CPU time)\n\nRan 1 test suite in 9.30ms (693.70\u00c2\u00b5s CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)\n",
+  "stderr": "",
+  "passed": true
+}

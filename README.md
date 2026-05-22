@@ -89,6 +89,21 @@ python -m backend.hotspot_hub.cli prompt "targets/thegraph/code-map/hotspot-repo
 
 Tooling disk-space plan: `knowledge/tooling-size-plan.md`.
 
+## Exploit-Validation Slice
+
+Generate three invariant ideas, create a Foundry scaffold, run `forge test`, and store the result:
+
+```powershell
+python -m backend.hotspot_hub.cli validate foundry-slice --target thegraph --contract-name SubgraphService --contract-path external/thegraph-contracts/packages/subgraph-service/contracts/SubgraphService.sol
+```
+
+Artifacts are written to:
+
+- `targets/thegraph/runs/<run-id>/`
+- `targets/thegraph/pocs/generated/<run-id>/`
+
+A passing generated scaffold is not report evidence; it only proves the local validation loop works.
+
 ## Add A New Bounty
 
 ```powershell

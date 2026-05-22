@@ -1,0 +1,15 @@
+{
+  "run_id": "subgraphservice-payment-flow-vslice-001",
+  "judged_at": "2026-05-22T13:23:41.903847+00:00",
+  "status": "promising_scaffold",
+  "rationale": "The scaffold compiles and runs, but it uses a placeholder harness and is not evidence of a bug.",
+  "next_action": "Wire the strongest hypothesis into the real local contract harness and rerun.",
+  "surviving_candidates": [
+    "SUBGRAPH-INV-1",
+    "SUBGRAPH-INV-2",
+    "SUBGRAPH-INV-3"
+  ],
+  "reproduced": false,
+  "report_ready": false,
+  "safety_note": "Local scaffold result only. Do not submit or test live systems."
+}

@@ -7,8 +7,12 @@ import json
 from pathlib import Path
 
 from .engine import HotspotEngine
+from .foundry_harness_generator import generate_foundry_scaffold
+from .hypothesis_queue import default_invariant_candidates, make_run_id, write_queue
 from .prompt_builder import build_hotspot_prompt
+from .result_judge import judge_foundry_result
 from .target_initializer import initialize_target
+from .test_runner import run_foundry_tests
 from .tool_status import collect_tool_status
 
 
@@ -78,6 +82,39 @@ def target_init_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def foundry_slice_command(args: argparse.Namespace) -> int:
+    workspace = Path.cwd()
+    run_id = args.run_id or make_run_id(args.contract_name)
+    run_dir = workspace / "targets" / args.target / "runs" / run_id
+    generated_dir = workspace / "targets" / args.target / "pocs" / "generated" / run_id
+    candidates = default_invariant_candidates(args.contract_name, args.contract_path)
+
+    queue_payload = write_queue(
+        run_dir / "hypothesis-queue.json",
+        run_id=run_id,
+        target=args.target,
+        contract_name=args.contract_name,
+        contract_path=args.contract_path,
+        candidates=candidates,
+    )
+    generated_files = generate_foundry_scaffold(generated_dir, queue_payload)
+    run_payload = run_foundry_tests(generated_dir, run_dir / "foundry-result.json", args.timeout)
+    judgment = judge_foundry_result(queue_payload, run_payload, run_dir / "judgment.json")
+
+    summary = {
+        "run_id": run_id,
+        "status": judgment["status"],
+        "generated_dir": str(generated_dir),
+        "run_dir": str(run_dir),
+        "generated_files": [str(path) for path in generated_files],
+        "result_file": str(run_dir / "foundry-result.json"),
+        "judgment_file": str(run_dir / "judgment.json"),
+        "next_action": judgment["next_action"],
+    }
+    print(json.dumps(summary, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Local Hotspot Hub backend")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -107,6 +144,17 @@ def build_parser() -> argparse.ArgumentParser:
     init.add_argument("program_url", help="Immunefi program URL")
     init.add_argument("--name", help="Optional display name for the target")
     init.set_defaults(func=target_init_command)
+
+    validate = subparsers.add_parser("validate", help="Run local hypothesis validation slices")
+    validate_subparsers = validate.add_subparsers(dest="validate_command", required=True)
+
+    foundry = validate_subparsers.add_parser("foundry-slice", help="Generate and run one Foundry validation scaffold")
+    foundry.add_argument("--target", default="thegraph", help="Target slug under targets/")
+    foundry.add_argument("--contract-name", required=True, help="Human-readable selected contract name")
+    foundry.add_argument("--contract-path", required=True, help="Local or mapped path for the selected contract")
+    foundry.add_argument("--run-id", help="Optional stable run id")
+    foundry.add_argument("--timeout", type=int, default=180, help="Forge test timeout in seconds")
+    foundry.set_defaults(func=foundry_slice_command)
 
     return parser
 
