@@ -187,6 +187,8 @@ Check LM Studio connectivity:
 python -m backend.hotspot_hub.cli llm ping
 ```
 
+The ping command lists loaded local models, uses the requested model when available, and accepts `reasoning_content` as valid health-check output for reasoning models that do not emit final `content` during short pings.
+
 Generate a queue that sends hotspots to the local model:
 
 ```powershell

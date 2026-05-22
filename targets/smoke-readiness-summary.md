@@ -35,8 +35,8 @@ Run date: 2026-05-22
 ## Local LLM Ping
 
 - Command: `python -m backend.hotspot_hub.cli llm ping`
-- Status: optional failed
-- Result: local endpoint returned HTTP 400.
+- Status: passed after adapter compatibility fix
+- Result: local endpoint exposed `qwen/qwen3.5-9b` and returned reasoning-model output.
 - Pipeline impact: non-blocking because canned hypotheses work without a model provider.
 
 ## Real Foundry Compile Smoke
@@ -51,5 +51,5 @@ Run date: 2026-05-22
 ## Stop/Go Decision
 
 - Go: fixture-slice reproduced the seeded bug and canned hypotheses generated correctly.
-- Next blocker: make the LM Studio ping compatible with the currently loaded local server API/model settings.
+- Next blocker: wire one real target contract with proper mocks/setup and replace the smoke assertion with a real invariant.
 - Next build phase: wire one real target contract with proper mocks/setup and replace the smoke assertion with a real invariant.
