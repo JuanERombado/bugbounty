@@ -154,6 +154,14 @@ python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph 
 
 This local-only harness adds mock Horizon staking and dispute-manager dependencies, then checks that an authorized indexer with a valid provision can register while unauthorized or unprovisioned registration attempts revert.
 
+First allocation accounting slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id STARTSERVICE-ALLOCATION-001 --run-id real-subgraphservice-startservice-allocation-001
+```
+
+This local-only harness signs an allocation proof, starts service for a registered indexer, and checks that allocation state plus subgraph allocated-token accounting update exactly once.
+
 Possible statuses include `compile_failed`, `harness_needs_mocks`, `test_failed`, `invariant_failed_promising`, and `clean`.
 
 Compile failures are harness work, not security findings.
