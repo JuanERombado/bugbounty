@@ -10,6 +10,7 @@ from .engine import HotspotEngine
 from .foundry_harness_generator import generate_foundry_scaffold
 from .hypothesis_queue import default_invariant_candidates, make_run_id, write_queue
 from .prompt_builder import build_hotspot_prompt
+from .queue_generator import generate_hotspot_worker_queue
 from .result_judge import judge_foundry_result
 from .target_initializer import initialize_target
 from .test_runner import run_foundry_tests
@@ -122,6 +123,19 @@ def worker_run_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def worker_generate_command(args: argparse.Namespace) -> int:
+    queue = generate_hotspot_worker_queue(
+        args.report,
+        args.out,
+        args.target,
+        args.max_hotspots,
+        args.mode,
+        args.timeout,
+    )
+    print(json.dumps({"out": str(args.out), "jobs": len(queue["jobs"]), "mode": queue["mode"]}, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Local Hotspot Hub backend")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -171,6 +185,20 @@ def build_parser() -> argparse.ArgumentParser:
     worker_run.add_argument("--out-dir", type=Path, help="Optional output directory for run artifacts")
     worker_run.add_argument("--max-jobs", type=int, help="Optional maximum jobs to run from the queue")
     worker_run.set_defaults(func=worker_run_command)
+
+    worker_generate = worker_subparsers.add_parser("generate", help="Generate a worker queue from a hotspot report")
+    worker_generate.add_argument("report", type=Path, help="Hotspot report JSON")
+    worker_generate.add_argument("--out", type=Path, required=True, help="Output worker queue JSON")
+    worker_generate.add_argument("--target", default="thegraph", help="Target slug under targets/")
+    worker_generate.add_argument("--max-hotspots", type=int, default=5, help="Maximum ranked hotspots to queue")
+    worker_generate.add_argument(
+        "--mode",
+        choices=["prompt", "foundry-scaffold"],
+        default="prompt",
+        help="Queue prompt artifacts or generated Foundry scaffold runs",
+    )
+    worker_generate.add_argument("--timeout", type=int, default=180, help="Timeout per generated job in seconds")
+    worker_generate.set_defaults(func=worker_generate_command)
 
     return parser
 

@@ -1,0 +1,29 @@
+{
+  "target": {
+    "root": "external/thegraph-contracts",
+    "generated_at": "2026-05-22T00:00:00+00:00",
+    "file_count": 1
+  },
+  "hotspots": [
+    {
+      "path": "packages/subgraph-service/contracts/libraries/IndexingAgreement.sol",
+      "score": 42,
+      "reasons": [
+        "high complexity",
+        "value movement"
+      ],
+      "metrics": [],
+      "findings": [],
+      "symbols": [
+        "collect",
+        "update"
+      ],
+      "tags": [
+        "accounting",
+        "payment-flow"
+      ]
+    }
+  ],
+  "findings": [],
+  "scanner_runs": []
+}

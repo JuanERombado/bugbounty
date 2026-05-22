@@ -40,11 +40,20 @@ This executes local commands from JSON, captures stdout/stderr/exit code, and wr
 
 ## Next Build Milestones
 
-1. Add a queue generator that converts ranked hotspots into safe worker jobs.
-2. Add a local LLM adapter for Ollama or LM Studio using compact prompt templates.
-3. Add a result classifier that marks jobs as `dead`, `needs_mutation`, `promising`, or `escalate_frontier`.
-4. Add a dashboard page for worker queues, running jobs, artifacts, and evidence thresholds.
-5. Backtest the worker against known vulnerable training contracts before trusting it on live bounty targets.
+1. Add a local LLM adapter for Ollama or LM Studio using compact prompt templates.
+2. Add a result classifier that marks jobs as `dead`, `needs_mutation`, `promising`, or `escalate_frontier`.
+3. Add a dashboard page for worker queues, running jobs, artifacts, and evidence thresholds.
+4. Backtest the worker against known vulnerable training contracts before trusting it on live bounty targets.
+
+## Queue Generator
+
+The CLI can now convert a ranked hotspot report into worker jobs:
+
+```powershell
+python -m backend.hotspot_hub.cli worker generate targets/thegraph/code-map/hotspot-report.json --out queues/thegraph-hotspots.worker.json --max-hotspots 5
+```
+
+Default mode creates prompt-artifact jobs. `--mode foundry-scaffold` creates jobs for the existing generated Foundry validation slice.
 
 ## Practical Goal
 

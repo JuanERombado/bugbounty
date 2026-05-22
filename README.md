@@ -116,6 +116,18 @@ Worker results are written under `targets/<target>/runs/<run-id>/`.
 
 The worker is for local evidence production only; use local or frontier LLMs to review compact artifacts after deterministic tools run.
 
+Generate a queue from a hotspot report:
+
+```powershell
+python -m backend.hotspot_hub.cli worker generate targets/thegraph/code-map/hotspot-report.json --out queues/thegraph-hotspots.worker.json --max-hotspots 5
+```
+
+Then run it:
+
+```powershell
+python -m backend.hotspot_hub.cli worker run queues/thegraph-hotspots.worker.json
+```
+
 ## Add A New Bounty
 
 ```powershell
