@@ -1,0 +1,14 @@
+{
+  "runner": "foundry",
+  "project_dir": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\targets\\thegraph\\pocs\\generated\\real-subgraphservice-resize-allocation-001",
+  "command": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\forge.exe",
+    "test",
+    "-vv"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 3.331,
+  "stdout": "Compiling 102 files with Solc 0.8.27\nSolc 0.8.27 finished in 2.53s\nCompiler run successful!\n\nRan 3 tests for test/SubgraphServiceRealHarness.t.sol:SubgraphServiceRealHarnessTest\n[PASS] test_RESIZE_ALLOCATION_001_resizeUpAndDownKeepsAccountingInSync() (gas: 156996)\n[PASS] test_RESIZE_ALLOCATION_001_sameSizeResizeReverts() (gas: 85625)\n[PASS] test_RESIZE_ALLOCATION_001_unauthorizedResizeReverts() (gas: 28475)\nSuite result: ok. 3 passed; 0 failed; 0 skipped; finished in 2.26ms (700.10\u00c2\u00b5s CPU time)\n\nRan 1 test suite in 5.33ms (2.26ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)\n",
+  "stderr": "",
+  "passed": true
+}
