@@ -1,0 +1,295 @@
+{
+  "target": {
+    "name": "The Graph",
+    "program_url": "https://immunefi.com/bug-bounty/thegraph/information/#top",
+    "last_verified": "2026-05-20",
+    "program_last_updated": "2026-04-28",
+    "max_bounty_usd": 50000,
+    "notes": [
+      "Rewards are in GRT on Arbitrum and denominated in USD.",
+      "PoC is required for all severities.",
+      "KYC is required for payout processing.",
+      "The Immunefi page reports 35 total smart-contract assets in scope; this v1 file captures the first verified high-priority page entries and should be refreshed before submission work."
+    ]
+  },
+  "source_pages": [
+    {
+      "name": "Information",
+      "url": "https://immunefi.com/bug-bounty/thegraph/information/"
+    },
+    {
+      "name": "Scope",
+      "url": "https://immunefi.com/bug-bounty/thegraph/scope/"
+    },
+    {
+      "name": "Resources",
+      "url": "https://immunefi.com/bug-bounty/thegraph/resources/"
+    }
+  ],
+  "rules": {
+    "hard_guardrails": [
+      "Use local repo analysis, local tests, or local forks only.",
+      "Do not attack live systems.",
+      "Do not test against public mainnet or public testnet deployments.",
+      "Do not generate traffic-heavy scanners.",
+      "Do not build phishing, social engineering, DoS, or exploit automation against real systems."
+    ],
+    "prohibited_activities": [
+      "Any testing on mainnet or public testnet deployed code; all testing should be done on local forks of either public testnet or mainnet.",
+      "Any testing with pricing oracles or third-party smart contracts.",
+      "Attempting phishing or other social engineering attacks against employees or customers.",
+      "Any testing with third-party systems and applications.",
+      "Any denial of service attacks executed against project assets.",
+      "Automated testing of services that generates significant amounts of traffic.",
+      "Public disclosure of an unpatched vulnerability in an embargoed bounty.",
+      "Any other actions prohibited by Immunefi Rules."
+    ],
+    "out_of_scope": [
+      "Frontrunning, including back running and sandwich attacks.",
+      "Known issues previously reported in security audits.",
+      "Natural network activity like curation whose mechanisms could result in unprofitable actions for a stakeholder.",
+      "Attacks that rely on social engineering.",
+      "Attacks requiring access to a victim machine.",
+      "Attacks of third-party service providers.",
+      "Best practice critiques.",
+      "Indexer port configurations not aligned with best practices.",
+      "Attacks that have the potential to impact token price.",
+      "Testnet assets.",
+      "Man in the middle attacks.",
+      "Incorrect data supplied by third-party oracles, except oracle manipulation or flash loan attacks are not automatically excluded.",
+      "Impacts requiring basic economic and governance attacks, such as 51% attacks.",
+      "Lack of liquidity impacts.",
+      "Impacts from Sybil attacks.",
+      "Impacts involving centralization risks.",
+      "Impacts caused by attacks requiring leaked keys or credentials.",
+      "Impacts caused by attacks requiring privileged addresses without additional privilege modification.",
+      "Mentions of secrets in GitHub without proof they are in use in production.",
+      "Feature requests.",
+      "Impacts on test files and configuration files unless stated otherwise."
+    ],
+    "reporting_requirements": [
+      "Submit vulnerabilities to The Graph through Immunefi first.",
+      "Include reproducible steps, relevant links, docs, code, and evidence.",
+      "Submit one vulnerability per report; if the same bug affects multiple in-scope assets, mention them in one report.",
+      "Do not publicly disclose before resolution.",
+      "Inline PoC scripts are required for smart contract bugs and should not require external downloads."
+    ]
+  },
+  "impacts_in_scope": [
+    {
+      "severity": "Critical",
+      "title": "A bug that could cause significant (>$1M) user funds to be lost or stolen directly from protocol smart contracts, not including slashing."
+    },
+    {
+      "severity": "High",
+      "title": "Private information being stolen."
+    },
+    {
+      "severity": "High",
+      "title": "An economic attack other than a basic 51% governance attack that could cause significant (>$1M) user funds to be lost or stolen directly from protocol smart contracts."
+    },
+    {
+      "severity": "High",
+      "title": "A bug that could cause network participants to be impersonated and unwanted actions being taken, such as user funds being stolen directly from protocol smart contracts."
+    }
+  ],
+  "assets_in_scope": [
+    {
+      "name": "GraphTokenLockWallet",
+      "target": "0xbE5e...2255",
+      "chain": "Ethereum mainnet",
+      "category": "token distribution",
+      "added_on": "2022-05-10",
+      "source_url": "https://github.com/graphprotocol/token-distribution",
+      "priority_tags": ["accounting", "vesting", "access-control"],
+      "notes": "Token lock wallet for distribution flows."
+    },
+    {
+      "name": "RewardsManager",
+      "target": "Not displayed in first scope page",
+      "chain": "Arbitrum",
+      "category": "rewards",
+      "added_on": "2022-12-15",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["rewards", "accounting", "state-transition"],
+      "notes": "High-value reward accounting target."
+    },
+    {
+      "name": "L1Staking",
+      "target": "0xF550...63b9",
+      "chain": "Ethereum mainnet",
+      "category": "staking",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["staking", "delegation", "accounting", "access-control"],
+      "notes": "Likely priority because rewards mention Indexer and Delegator funds."
+    },
+    {
+      "name": "GraphToken",
+      "target": "0xc944...44a7",
+      "chain": "Ethereum mainnet",
+      "category": "token",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["token", "accounting"],
+      "notes": "Core GRT token contract."
+    },
+    {
+      "name": "L1GNS",
+      "target": "0xaDcA...6825",
+      "chain": "Ethereum mainnet",
+      "category": "registry",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["registry", "state-transition", "access-control"],
+      "notes": "Graph Name Service / subgraph ownership style logic."
+    },
+    {
+      "name": "RewardsManager",
+      "target": "0x9Ac7...ED66",
+      "chain": "Ethereum mainnet",
+      "category": "rewards",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["rewards", "accounting", "state-transition"],
+      "notes": "Mainnet rewards manager."
+    },
+    {
+      "name": "DisputeManager",
+      "target": "0x9730...FB0b",
+      "chain": "Ethereum mainnet",
+      "category": "disputes",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["disputes", "slashing", "state-transition", "access-control"],
+      "notes": "Dispute and slashing-adjacent logic; slashing itself is excluded from critical funds-loss impact wording."
+    },
+    {
+      "name": "Curation",
+      "target": "0x8FE0...1538",
+      "chain": "Ethereum mainnet",
+      "category": "curation",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["curation", "accounting", "economic", "state-transition"],
+      "notes": "Natural unprofitable curation activity is out of scope; focus on direct fund loss bugs."
+    },
+    {
+      "name": "BillingConnector",
+      "target": "0x8017...ea72",
+      "chain": "Ethereum mainnet",
+      "category": "billing",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["accounting", "connector", "access-control"],
+      "notes": "Connector logic often has trust-boundary and accounting assumptions."
+    },
+    {
+      "name": "Governor",
+      "target": "0x74Db...1732",
+      "chain": "Ethereum mainnet",
+      "category": "governance",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["governance", "access-control", "permission"],
+      "notes": "Basic 51% governance attacks are out of scope; focus only on implementation bugs."
+    },
+    {
+      "name": "ArbitrumInbox",
+      "target": "0x4Dbd...AB3f",
+      "chain": "Ethereum mainnet",
+      "category": "bridge",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["bridge", "cross-chain", "message-validation"],
+      "notes": "Cross-chain message boundary target."
+    },
+    {
+      "name": "BridgeEscrow",
+      "target": "0x36aF...F090",
+      "chain": "Ethereum mainnet",
+      "category": "bridge",
+      "added_on": "2026-03-13",
+      "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+      "priority_tags": ["bridge", "escrow", "accounting", "cross-chain"],
+      "notes": "Escrowed funds plus bridge assumptions make this high priority."
+    }
+  ],
+  "audits": [
+    {
+      "auditor": "ConsenSys Diligence",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/contracts/audits",
+      "completed_at": "2022-02-28",
+      "notes": "Known audit issues are out of scope."
+    },
+    {
+      "auditor": "Trust",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/contracts/audits",
+      "completed_at": "2023-01-31",
+      "notes": "Known audit issues are out of scope."
+    },
+    {
+      "auditor": "OpenZeppelin",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/contracts/audits",
+      "completed_at": "2024-01-31",
+      "notes": "Known audit issues are out of scope."
+    },
+    {
+      "auditor": "OpenZeppelin",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/horizon/audits",
+      "completed_at": "2024-05-31",
+      "notes": "Horizon audit source."
+    },
+    {
+      "auditor": "Trust",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/horizon/audits",
+      "completed_at": "2024-10-31",
+      "notes": "Horizon audit source."
+    },
+    {
+      "auditor": "OpenZeppelin",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/horizon/audits",
+      "completed_at": "2025-02-28",
+      "notes": "Horizon audit source."
+    },
+    {
+      "auditor": "OpenZeppelin",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/horizon/audits",
+      "completed_at": "2025-04-30",
+      "notes": "Horizon audit source."
+    },
+    {
+      "auditor": "OpenZeppelin",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/issuance/audits",
+      "completed_at": "2025-11-30",
+      "notes": "Issuance changes may include upgrades not yet deployed; verify asset is listed in scope before testing."
+    }
+  ],
+  "resources": [
+    {
+      "title": "Past Security Audits",
+      "description": "A list of all security audits performed since 2020.",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/contracts/audits"
+    },
+    {
+      "title": "Security Audit: Protocol Issuance Changes",
+      "description": "Audits related to issuance changes; some may cover upgrades not yet deployed and therefore ineligible until listed in scope.",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/issuance/audits"
+    },
+    {
+      "title": "Security Audit: Horizon Protocol Upgrade",
+      "description": "Audits related to the Horizon upgrade since 2024.",
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/horizon/audits"
+    },
+    {
+      "title": "Smart Contracts",
+      "description": "Each smart contract in scope has its own README.md.",
+      "url": "https://github.com/graphprotocol/contracts"
+    },
+    {
+      "title": "The Graph Docs",
+      "description": "Overall documentation about The Graph.",
+      "url": "https://thegraph.com/docs/"
+    }
+  ]
+}

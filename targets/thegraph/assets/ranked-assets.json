@@ -1,0 +1,248 @@
+[
+  {
+    "name": "L1Staking",
+    "target": "0xF550...63b9",
+    "chain": "Ethereum mainnet",
+    "category": "staking",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "staking",
+      "delegation",
+      "accounting",
+      "access-control"
+    ],
+    "notes": "Likely priority because rewards mention Indexer and Delegator funds.",
+    "rank_score": 41,
+    "matched_weight_terms": [
+      "staking",
+      "rewards",
+      "accounting",
+      "access-control",
+      "delegation"
+    ]
+  },
+  {
+    "name": "BridgeEscrow",
+    "target": "0x36aF...F090",
+    "chain": "Ethereum mainnet",
+    "category": "bridge",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "bridge",
+      "escrow",
+      "accounting",
+      "cross-chain"
+    ],
+    "notes": "Escrowed funds plus bridge assumptions make this high priority.",
+    "rank_score": 37,
+    "matched_weight_terms": [
+      "bridge",
+      "cross-chain",
+      "escrow",
+      "accounting"
+    ]
+  },
+  {
+    "name": "Curation",
+    "target": "0x8FE0...1538",
+    "chain": "Ethereum mainnet",
+    "category": "curation",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "curation",
+      "accounting",
+      "economic",
+      "state-transition"
+    ],
+    "notes": "Natural unprofitable curation activity is out of scope; focus on direct fund loss bugs.",
+    "rank_score": 29,
+    "matched_weight_terms": [
+      "curation",
+      "accounting",
+      "state-transition",
+      "economic"
+    ]
+  },
+  {
+    "name": "ArbitrumInbox",
+    "target": "0x4Dbd...AB3f",
+    "chain": "Ethereum mainnet",
+    "category": "bridge",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "bridge",
+      "cross-chain",
+      "message-validation"
+    ],
+    "notes": "Cross-chain message boundary target.",
+    "rank_score": 27,
+    "matched_weight_terms": [
+      "bridge",
+      "cross-chain",
+      "message-validation"
+    ]
+  },
+  {
+    "name": "RewardsManager",
+    "target": "Not displayed in first scope page",
+    "chain": "Arbitrum",
+    "category": "rewards",
+    "added_on": "2022-12-15",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "rewards",
+      "accounting",
+      "state-transition"
+    ],
+    "notes": "High-value reward accounting target.",
+    "rank_score": 25,
+    "matched_weight_terms": [
+      "rewards",
+      "accounting",
+      "state-transition"
+    ]
+  },
+  {
+    "name": "RewardsManager",
+    "target": "0x9Ac7...ED66",
+    "chain": "Ethereum mainnet",
+    "category": "rewards",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "rewards",
+      "accounting",
+      "state-transition"
+    ],
+    "notes": "Mainnet rewards manager.",
+    "rank_score": 25,
+    "matched_weight_terms": [
+      "rewards",
+      "accounting",
+      "state-transition"
+    ]
+  },
+  {
+    "name": "DisputeManager",
+    "target": "0x9730...FB0b",
+    "chain": "Ethereum mainnet",
+    "category": "disputes",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "disputes",
+      "slashing",
+      "state-transition",
+      "access-control"
+    ],
+    "notes": "Dispute and slashing-adjacent logic; slashing itself is excluded from critical funds-loss impact wording.",
+    "rank_score": 22,
+    "matched_weight_terms": [
+      "disputes",
+      "state-transition",
+      "access-control"
+    ]
+  },
+  {
+    "name": "BillingConnector",
+    "target": "0x8017...ea72",
+    "chain": "Ethereum mainnet",
+    "category": "billing",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "accounting",
+      "connector",
+      "access-control"
+    ],
+    "notes": "Connector logic often has trust-boundary and accounting assumptions.",
+    "rank_score": 20,
+    "matched_weight_terms": [
+      "accounting",
+      "access-control",
+      "billing"
+    ]
+  },
+  {
+    "name": "GraphTokenLockWallet",
+    "target": "0xbE5e...2255",
+    "chain": "Ethereum mainnet",
+    "category": "token distribution",
+    "added_on": "2022-05-10",
+    "source_url": "https://github.com/graphprotocol/token-distribution",
+    "priority_tags": [
+      "accounting",
+      "vesting",
+      "access-control"
+    ],
+    "notes": "Token lock wallet for distribution flows.",
+    "rank_score": 18,
+    "matched_weight_terms": [
+      "accounting",
+      "access-control",
+      "token"
+    ]
+  },
+  {
+    "name": "L1GNS",
+    "target": "0xaDcA...6825",
+    "chain": "Ethereum mainnet",
+    "category": "registry",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "registry",
+      "state-transition",
+      "access-control"
+    ],
+    "notes": "Graph Name Service / subgraph ownership style logic.",
+    "rank_score": 18,
+    "matched_weight_terms": [
+      "state-transition",
+      "access-control",
+      "registry"
+    ]
+  },
+  {
+    "name": "Governor",
+    "target": "0x74Db...1732",
+    "chain": "Ethereum mainnet",
+    "category": "governance",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "governance",
+      "access-control",
+      "permission"
+    ],
+    "notes": "Basic 51% governance attacks are out of scope; focus only on implementation bugs.",
+    "rank_score": 17,
+    "matched_weight_terms": [
+      "access-control",
+      "permission",
+      "governance"
+    ]
+  },
+  {
+    "name": "GraphToken",
+    "target": "0xc944...44a7",
+    "chain": "Ethereum mainnet",
+    "category": "token",
+    "added_on": "2026-03-13",
+    "source_url": "https://immunefi.com/bug-bounty/thegraph/scope/",
+    "priority_tags": [
+      "token",
+      "accounting"
+    ],
+    "notes": "Core GRT token contract.",
+    "rank_score": 11,
+    "matched_weight_terms": [
+      "accounting",
+      "token"
+    ]
+  }
+]

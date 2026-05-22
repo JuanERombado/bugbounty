@@ -1,0 +1,43 @@
+{
+  "title": "Example only: local accounting invariant violation",
+  "target": "The Graph",
+  "asset": {
+    "name": "ExampleAsset",
+    "address_or_identifier": "local mock",
+    "in_scope": false,
+    "source": "replace with Immunefi scope URL"
+  },
+  "impact": {
+    "severity": "High",
+    "accepted_impact": "replace with exact accepted impact wording",
+    "impact_fit": "explain why the local PoC demonstrates this impact"
+  },
+  "scope_checks": {
+    "asset_in_scope": false,
+    "impact_in_scope": false,
+    "not_known_issue": false,
+    "not_out_of_scope": false,
+    "local_only": true,
+    "notes": ["Example dossier is intentionally not submission-ready."]
+  },
+  "evidence": {
+    "affected_files": [],
+    "root_cause": "",
+    "test_output": "",
+    "environment": "local only",
+    "audit_review_notes": ""
+  },
+  "poc": {
+    "complete": false,
+    "local_command": "",
+    "files": [],
+    "expected_result": "",
+    "actual_result": ""
+  },
+  "report": {
+    "summary": "",
+    "steps_to_reproduce": [],
+    "suggested_fix": "",
+    "draft_path": ""
+  }
+}

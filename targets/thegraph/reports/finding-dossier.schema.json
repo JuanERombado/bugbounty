@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/bug-bounty-workbench/finding-dossier.schema.json",
+  "title": "Finding Dossier",
+  "type": "object",
+  "required": [
+    "title",
+    "target",
+    "asset",
+    "impact",
+    "scope_checks",
+    "evidence",
+    "poc",
+    "report"
+  ],
+  "properties": {
+    "title": { "type": "string" },
+    "target": { "type": "string" },
+    "asset": {
+      "type": "object",
+      "required": ["name", "in_scope", "source"],
+      "properties": {
+        "name": { "type": "string" },
+        "address_or_identifier": { "type": "string" },
+        "in_scope": { "type": "boolean" },
+        "source": { "type": "string" }
+      }
+    },
+    "impact": {
+      "type": "object",
+      "required": ["severity", "accepted_impact", "impact_fit"],
+      "properties": {
+        "severity": { "type": "string" },
+        "accepted_impact": { "type": "string" },
+        "impact_fit": { "type": "string" }
+      }
+    },
+    "scope_checks": {
+      "type": "object",
+      "required": [
+        "asset_in_scope",
+        "impact_in_scope",
+        "not_known_issue",
+        "not_out_of_scope",
+        "local_only"
+      ],
+      "properties": {
+        "asset_in_scope": { "type": "boolean" },
+        "impact_in_scope": { "type": "boolean" },
+        "not_known_issue": { "type": "boolean" },
+        "not_out_of_scope": { "type": "boolean" },
+        "local_only": { "type": "boolean" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["affected_files", "root_cause", "test_output", "environment"],
+      "properties": {
+        "affected_files": { "type": "array", "items": { "type": "string" } },
+        "root_cause": { "type": "string" },
+        "test_output": { "type": "string" },
+        "environment": { "type": "string" },
+        "audit_review_notes": { "type": "string" }
+      }
+    },
+    "poc": {
+      "type": "object",
+      "required": ["complete", "local_command", "files", "expected_result", "actual_result"],
+      "properties": {
+        "complete": { "type": "boolean" },
+        "local_command": { "type": "string" },
+        "files": { "type": "array", "items": { "type": "string" } },
+        "expected_result": { "type": "string" },
+        "actual_result": { "type": "string" }
+      }
+    },
+    "report": {
+      "type": "object",
+      "required": ["summary", "steps_to_reproduce", "suggested_fix"],
+      "properties": {
+        "summary": { "type": "string" },
+        "steps_to_reproduce": { "type": "array", "items": { "type": "string" } },
+        "suggested_fix": { "type": "string" },
+        "draft_path": { "type": "string" }
+      }
+    }
+  }
+}

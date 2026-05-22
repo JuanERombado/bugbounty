@@ -1,0 +1,161 @@
+{
+  "workspace": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench",
+  "python": "3.12.10",
+  "local_tool_paths": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\semgrep\\Scripts",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither\\Scripts"
+  ],
+  "local_tool_dirs": [
+    {
+      "name": "foundry",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry",
+      "size_mb": 175.0
+    },
+    {
+      "name": "semgrep",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\semgrep",
+      "size_mb": 340.8
+    },
+    {
+      "name": "slither",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither",
+      "size_mb": 89.6
+    }
+  ],
+  "local_tools_total_mb": 605.4,
+  "tools": [
+    {
+      "name": "Python",
+      "binary": "python",
+      "category": "runtime",
+      "priority": "required",
+      "purpose": "Runs backend scripts and Python scanners.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\AppData\\Local\\Programs\\Python\\Python312\\python.EXE",
+      "version": "Python 3.12.10",
+      "local_size_mb": null,
+      "status": "installed"
+    },
+    {
+      "name": "Node.js",
+      "binary": "node",
+      "category": "runtime",
+      "priority": "required",
+      "purpose": "Runs JS tooling, Hardhat, and frontend builds.",
+      "installed": true,
+      "source": "C:\\Program Files\\nodejs\\node.EXE",
+      "version": "v24.11.1",
+      "local_size_mb": null,
+      "status": "installed"
+    },
+    {
+      "name": "npm",
+      "binary": "npm",
+      "category": "runtime",
+      "priority": "required",
+      "purpose": "Installs JavaScript dependencies.",
+      "installed": true,
+      "source": "C:\\Program Files\\nodejs\\npm.CMD",
+      "version": "11.6.2",
+      "local_size_mb": null,
+      "status": "installed"
+    },
+    {
+      "name": "Git",
+      "binary": "git",
+      "category": "runtime",
+      "priority": "required",
+      "purpose": "Clones repositories and inspects history.",
+      "installed": true,
+      "source": "C:\\Program Files\\Git\\cmd\\git.EXE",
+      "version": "git version 2.53.0.windows.3",
+      "local_size_mb": null,
+      "status": "installed"
+    },
+    {
+      "name": "Foundry forge",
+      "binary": "forge",
+      "category": "smart-contract",
+      "priority": "required",
+      "purpose": "Compiles and tests Solidity projects.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\forge.exe",
+      "version": "forge Version: 1.7.1",
+      "local_size_mb": 175.0,
+      "status": "installed"
+    },
+    {
+      "name": "Foundry cast",
+      "binary": "cast",
+      "category": "smart-contract",
+      "priority": "required",
+      "purpose": "Queries and encodes EVM data locally.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\cast.exe",
+      "version": "cast Version: 1.7.1",
+      "local_size_mb": 175.0,
+      "status": "installed"
+    },
+    {
+      "name": "Foundry anvil",
+      "binary": "anvil",
+      "category": "smart-contract",
+      "priority": "required",
+      "purpose": "Runs a local Ethereum dev chain.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\anvil.exe",
+      "version": "anvil Version: 1.7.1",
+      "local_size_mb": 175.0,
+      "status": "installed"
+    },
+    {
+      "name": "Slither",
+      "binary": "slither",
+      "category": "scanner",
+      "priority": "required",
+      "purpose": "Runs Solidity static analysis.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither\\Scripts\\slither.exe",
+      "version": "0.11.5",
+      "local_size_mb": 89.6,
+      "status": "installed"
+    },
+    {
+      "name": "Semgrep",
+      "binary": "semgrep",
+      "category": "scanner",
+      "priority": "high",
+      "purpose": "Runs pattern-based static analysis.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\semgrep\\Scripts\\semgrep.exe",
+      "version": "1.163.0",
+      "local_size_mb": 340.8,
+      "status": "installed"
+    },
+    {
+      "name": "Docker",
+      "binary": "docker",
+      "category": "isolation",
+      "priority": "optional",
+      "purpose": "Runs isolated tools and reproducible environments.",
+      "installed": true,
+      "source": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.EXE",
+      "version": "Docker version 29.4.0, build 9d7ad9f",
+      "local_size_mb": null,
+      "status": "installed"
+    },
+    {
+      "name": "Cargo",
+      "binary": "cargo",
+      "category": "runtime",
+      "priority": "optional",
+      "purpose": "Builds Rust-based tools and fuzzers.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\.cargo\\bin\\cargo.EXE",
+      "version": "cargo 1.91.1 (ea2d97820 2025-10-10)",
+      "local_size_mb": null,
+      "status": "installed"
+    }
+  ]
+}

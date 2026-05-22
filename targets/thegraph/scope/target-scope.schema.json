@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/bug-bounty-workbench/target-scope.schema.json",
+  "title": "Bug Bounty Target Scope",
+  "type": "object",
+  "required": ["target", "source_pages", "rules", "impacts_in_scope", "assets_in_scope"],
+  "properties": {
+    "target": {
+      "type": "object",
+      "required": ["name", "program_url", "last_verified"],
+      "properties": {
+        "name": { "type": "string" },
+        "program_url": { "type": "string", "format": "uri" },
+        "last_verified": { "type": "string" },
+        "max_bounty_usd": { "type": "number" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "source_pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "url"],
+        "properties": {
+          "name": { "type": "string" },
+          "url": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "properties": {
+        "hard_guardrails": { "type": "array", "items": { "type": "string" } },
+        "prohibited_activities": { "type": "array", "items": { "type": "string" } },
+        "out_of_scope": { "type": "array", "items": { "type": "string" } },
+        "reporting_requirements": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "impacts_in_scope": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "title"],
+        "properties": {
+          "severity": { "type": "string" },
+          "title": { "type": "string" }
+        }
+      }
+    },
+    "assets_in_scope": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "category", "priority_tags"],
+        "properties": {
+          "name": { "type": "string" },
+          "target": { "type": "string" },
+          "chain": { "type": "string" },
+          "category": { "type": "string" },
+          "added_on": { "type": "string" },
+          "source_url": { "type": "string" },
+          "priority_tags": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "audits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["auditor", "url", "completed_at"],
+        "properties": {
+          "auditor": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "completed_at": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "url"],
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "url": { "type": "string" }
+        }
+      }
+    }
+  }
+}

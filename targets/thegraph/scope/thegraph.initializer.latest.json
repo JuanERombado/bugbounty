@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.2",
+  "target_name": "The Graph Bug Bounties",
+  "target_slug": "thegraph",
+  "program_url": "https://immunefi.com/bug-bounty/thegraph/information/#top",
+  "initialized_at": "2026-05-21T22:01:59.744946+00:00",
+  "source": "immunefi_public_program_page",
+  "program_title": "The Graph Bug Bounties",
+  "program_summary": "Find bugs and vulnerabilities on The Graph and get paid up to $50,000.",
+  "status": "needs_manual_scope_review",
+  "assets_in_scope": [],
+  "out_of_scope": [],
+  "accepted_impacts": [],
+  "known_issue_sources": [],
+  "resources": [
+    {
+      "url": "https://docs.immunefi.foundation/?utm_source=immunefi&utm_medium=footer&utm_content=docs",
+      "type": "docs",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://docs.immunefi.foundation/?utm_source=immunefi&utm_medium=navbar&utm_content=docs",
+      "type": "docs",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/contracts/audits?utm_source=immunefi",
+      "type": "repository",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/horizon/audits?utm_source=immunefi",
+      "type": "repository",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://github.com/graphprotocol/contracts/tree/main/packages/issuance/audits?utm_source=immunefi",
+      "type": "repository",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://github.com/graphprotocol?utm_source=immunefi",
+      "type": "repository",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://immunefi.com/audit-competitions/",
+      "type": "audit",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://immunefi.com/audits/",
+      "type": "audit",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://immunefi.com/bug-bounty/thegraph/information/",
+      "type": "program",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://immunefi.com/bug-bounty/thegraph/information/#top",
+      "type": "program",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://immunefi.com/bug-bounty/thegraph/resources/#top",
+      "type": "resources",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://immunefi.com/bug-bounty/thegraph/scope/#assets",
+      "type": "scope",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://immunefi.com/bug-bounty/thegraph/scope/#impacts",
+      "type": "scope",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://immunefi.com/bug-bounty/thegraph/scope/#top",
+      "type": "scope",
+      "status": "needs_review"
+    },
+    {
+      "url": "https://thegraph.com/?utm_source=immunefi",
+      "type": "program",
+      "status": "needs_review"
+    }
+  ],
+  "initial_questions": [
+    "Which assets are explicitly in scope?",
+    "Which paid impacts are accepted for this program?",
+    "Which repositories and audits should be reviewed before hypothesis work?",
+    "Which testing activities are prohibited by the program rules?"
+  ],
+  "raw_excerpt": "Open menu Close menu Blog Platform Bug Bounty Programs PR Reviews Audits Audit Competitions Invite Only Safe Harbor Vaults Managed Triage Help Center Security Researchers Join Immunefi Find bugs. Get paid. Immunefi Studio Hacker Pledging Help for Whitehats All Stars Learn Leaderboard Immunefi Top 10 Bugs Whitehat Hall of Fame Competition Findings Responsible Publication Token Foundation Institutional Docs IR Contact Buy IMU Login Explore Bounties Get Protected Platform Bug Bounty Programs PR Reviews Audits Audit Competitions Invite Only Safe Harbor Vaults Managed Triage Help Center Security Researchers Join Immunefi Find bugs. Get paid. Immunefi Studio Hacker Pledging Help for Whitehats All Stars Learn Leaderboard Immunefi Top 10 Bugs Whitehat Hall of Fame Competition Findings Responsible Publication Token Foundation Institutional Docs IR Contact Buy IMU Blog Login Explore Bounties Back to Explore The Graph | The Graph is an indexing protocol for querying decentralized data from multiple blockchains and storage solutions such as IPFS. It is a decentralized network comprised of multiple stakeholders incentivized to build and offer an efficient and reliable open data marketplace, through GraphQL-based APIs. Arbitrum ETH Blockchain Infrastructure Services Staking Go Rust Solidity Typescript Maximum Bounty $50,000 Live Since 04 August 2021 Last Updated 28 April 2026 Triaged by Immunefi PoC Required Vault program KYC required Submit a Bug Information Scope Resources Immunefi vault program Funds available $85,036.75 30d Avg. Funds availability $86,993.54 Assets in vault 3.3M GRT Public vault address 0x4c0eD9DE84FBA3a005FBCcd1e9E8CE6ABf2B9a04 Rewards The Graph provides rewards in GRT on Arbitrum , denominated in USD. Rewards by Threat Level Smart Contract Critical Max: $50,000 Min: $15,000 Primacy of Rules High Max: $15,000 Min: $5,000 Primacy of Rules Critical Reward Calculation Mainnet assets: Reward amount is 10 % of the funds directly affected up to a maximum of: $50,000 Minimum reward to discourage security researchers from withholding a bug report: $15,000 Rewards Body Rewards are distributed according to the impact of the vulnerability based on the Immunefi Vulnerability Severity Classification System V2.3 . This is a simplified 5-level scale, with separate scales for websites/apps and smart contracts/blockchains, encompassing everything from the consequence of exploitation to privilege required to the likelihood of a successful exploit. A report will rece"
+}

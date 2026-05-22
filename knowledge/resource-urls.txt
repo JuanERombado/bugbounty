@@ -1,0 +1,199 @@
+# Bug Bounty Workbench Resource URLs
+#
+# Purpose:
+# Curated reference material for a Web3 bug bounty hunting knowledge base.
+# Treat OWASP SCS as the closest MITRE ATT&CK-style public taxonomy for smart contract review.
+
+## MITRE-like Smart Contract Taxonomies and Standards
+
+OWASP Smart Contract Security
+https://scs.owasp.org/
+
+OWASP Smart Contract Security Verification Standard (SCSVS)
+https://scs.owasp.org/SCSVS/
+
+OWASP Smart Contract Security Testing Guide (SCSTG)
+https://scs.owasp.org/SCSTG/
+
+OWASP Smart Contract Taxonomy
+https://scs.owasp.org/SCSTG/0x04a-Smart-Contract-Taxonomy/
+
+OWASP Smart Contract Weakness Enumeration (SCWE)
+https://scs.owasp.org/SCWE/
+
+OWASP Smart Contract Top 10
+https://scs.owasp.org/SCSTG/0x04-Smart-Contract-Top-10/
+
+OWASP Smart Contract Security Checklist
+https://scs.owasp.org/SCSVS/checklist/
+
+EEA EthTrust Security Levels Specification
+https://entethalliance.github.io/eta-registry/security-levels-spec.html
+
+SWC Registry (historical, useful but not actively maintained as a primary source)
+https://swcregistry.io/
+
+Smart Contract Security Field Guide
+https://scsfg.io/
+
+## Bug Bounty Process and Reporting
+
+Immunefi Learn
+https://immunefi.com/learn/
+
+Immunefi Hackers
+https://immunefi.com/hackers/
+
+Immunefi Rules
+https://immunefi.com/rules/
+
+Immunefi Duplicate Reports Policy
+https://immunefisupport.zendesk.com/hc/en-us/articles/14493421952401-Duplicate-Reports
+
+Immunefi Bug Bounty Program and Report FAQs
+https://immunefisupport.zendesk.com/hc/en-us/articles/7789428643217-Bug-Bounty-Program-and-Report-FAQs
+
+Immunefi All Stars
+https://immunefi.com/allstars/
+
+The Graph Immunefi Program
+https://immunefi.com/bug-bounty/thegraph/information/#top
+
+## Public Finding and Audit Databases
+
+Solodit
+https://solodit.cyfrin.io/
+
+Code4rena Reports
+https://code4rena.com/reports
+
+Sherlock Audit Contests
+https://audits.sherlock.xyz/
+
+Cantina Competition Reports
+https://cantina.xyz/competitions
+
+Trail of Bits Publications
+https://www.trailofbits.com/publications
+
+OpenZeppelin Security Audits
+https://blog.openzeppelin.com/security-audits
+
+Consensys Diligence Audits
+https://diligence.consensys.io/audits/
+
+Sigma Prime Security Blog
+https://blog.sigmaprime.io/
+
+ChainSecurity Audits
+https://www.chainsecurity.com/audits
+
+## Exploit and Incident Writeups
+
+Rekt News
+https://rekt.news/
+
+Chainalysis Crypto Crime Reports
+https://www.chainalysis.com/blog/category/reports/
+
+SlowMist Hacked Archive
+https://hacked.slowmist.io/
+
+Halborn Blog
+https://www.halborn.com/blog
+
+CertiK Blog
+https://www.certik.com/resources/blog
+
+BlockSec Blog
+https://blocksec.com/blog
+
+OpenZeppelin Exploit Analysis
+https://blog.openzeppelin.com/exploit-analysis
+
+## Local Analysis and Fuzzing Tools
+
+Foundry
+https://book.getfoundry.sh/
+
+Hardhat
+https://hardhat.org/docs
+
+Slither
+https://github.com/crytic/slither
+
+Slither Trail of Bits Overview
+https://blog.trailofbits.com/2018/10/19/slither-a-solidity-static-analysis-framework/
+
+Echidna
+https://github.com/crytic/echidna
+
+Medusa
+https://github.com/crytic/medusa
+
+Halmos
+https://github.com/a16z/halmos
+
+Mythril
+https://github.com/ConsenSysDiligence/mythril
+
+Manticore
+https://github.com/trailofbits/manticore
+
+Certora Prover
+https://docs.certora.com/
+
+Scribble
+https://docs.scribble.codes/
+
+Solidity SMTChecker
+https://docs.soliditylang.org/en/latest/smtchecker.html
+
+Tenderly Forks and Simulation Docs
+https://docs.tenderly.co/
+
+## Practice and Training
+
+Damn Vulnerable DeFi
+https://www.damnvulnerabledefi.xyz/
+
+Ethernaut
+https://ethernaut.openzeppelin.com/
+
+Capture the Ether
+https://capturetheether.com/
+
+Paradigm CTF
+https://github.com/paradigmxyz/paradigm-ctf-2021
+
+Secureum Bootcamp
+https://secureum.substack.com/
+
+Trail of Bits Building Secure Contracts
+https://github.com/crytic/building-secure-contracts
+
+OpenZeppelin Learn
+https://docs.openzeppelin.com/learn/
+
+Solidity Security Considerations
+https://docs.soliditylang.org/en/latest/security-considerations.html
+
+Ethereum Smart Contract Best Practices (historical but still useful)
+https://consensys.io/blog/ethereum-smart-contract-security-recommendations
+
+## Strategy Prompts To Derive From These Sources
+
+Accounting drift:
+Find where two ledgers can temporarily disagree, then ask who can profit before reconciliation.
+
+State-machine edge:
+Find transitions that are safe alone but unsafe when paused, delayed, retried, canceled, or partially completed.
+
+Authorization confusion:
+Find places where caller, signer, owner, delegate, operator, messenger, and receiver are treated as equivalent.
+
+Cross-chain assumption:
+Find where a local contract trusts a remote message, replay state, retry path, bridge alias, or finalization status.
+
+Novelty gate:
+For every lead, search root cause terms and existing tests before writing a full PoC.

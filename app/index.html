@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bug Bounty Workbench</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Workbench navigation">
+        <div class="brand">
+          <span class="brand-mark">BB</span>
+          <div>
+            <strong>Workbench</strong>
+            <span>local research console</span>
+          </div>
+        </div>
+
+        <label class="target-picker">
+          <span>Target</span>
+          <select id="targetSelect">
+            <option value="thegraph">The Graph</option>
+            <option value="template">New bounty template</option>
+          </select>
+        </label>
+
+        <nav class="nav-list">
+          <button class="nav-button active" data-view="newproject">New Project</button>
+          <button class="nav-button" data-view="submission">Submission Goal</button>
+          <button class="nav-button" data-view="process">Process Map</button>
+          <button class="nav-button" data-view="pipeline">Pipeline</button>
+          <button class="nav-button" data-view="severity">Severity Playbooks</button>
+          <button class="nav-button" data-view="experts">All Stars Patterns</button>
+          <button class="nav-button" data-view="assets">Asset Queue</button>
+          <button class="nav-button" data-view="local">Local Analyzers</button>
+        </nav>
+
+        <div class="guardrail">
+          <span>Mode</span>
+          <strong>Local-only</strong>
+          <p>No live attacks, public testnet testing, DoS, phishing, or traffic-heavy scans.</p>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Repeatable bounty workflow</p>
+            <h1 id="pageTitle">New Project</h1>
+          </div>
+          <div class="status-strip" aria-label="Workflow status">
+            <span><b id="assetCount">0</b> assets</span>
+            <span><b>2</b> paid severities</span>
+            <span><b>14</b> stages</span>
+          </div>
+        </header>
+
+        <section class="view active" id="newprojectView" aria-labelledby="pageTitle">
+          <div class="project-init-layout">
+            <section class="project-init-panel">
+              <div class="section-heading">
+                <h2>Initialize Target</h2>
+                <p>Paste an Immunefi program URL and create the local folder, starter scope file, and review checklist.</p>
+              </div>
+              <form class="project-form" id="projectForm">
+                <label>
+                  <span>Immunefi URL</span>
+                  <input id="programUrl" name="programUrl" type="url" required value="https://immunefi.com/bug-bounty/thegraph/information/#top" />
+                </label>
+                <label>
+                  <span>Target name</span>
+                  <input id="targetName" name="targetName" type="text" placeholder="Optional, inferred from URL if blank" />
+                </label>
+                <button class="primary-action" type="submit">Initialize new project</button>
+              </form>
+              <div class="project-note">
+                This performs one public page fetch for scope setup only; all analysis and testing stays local.
+              </div>
+            </section>
+            <section class="detail-panel" id="projectInitResult">
+              <h2>Ready</h2>
+              <p>Initialization will create a repeatable target workspace under <strong>targets/&lt;slug&gt;</strong>.</p>
+              <div class="detail-list">
+                <div><strong>Creates</strong><span>scope, assets, audits, code-map, hypotheses, pocs, reports, and known-bugs folders.</span></div>
+                <div><strong>Writes</strong><span>A starter scope JSON and target README without overwriting existing scope files.</span></div>
+                <div><strong>Next</strong><span>Review exact assets, impacts, exclusions, resources, and audit links before hunting.</span></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="submissionView" aria-labelledby="pageTitle">
+          <div class="submission-layout">
+            <section>
+              <div class="section-heading">
+                <h2>Submission Target</h2>
+                <p>Everything in the workbench exists to earn one of these report sections.</p>
+              </div>
+              <div class="report-sections" id="reportSections"></div>
+            </section>
+            <section class="detail-panel" id="readinessDetail"></section>
+          </div>
+        </section>
+
+        <section class="view" id="processView" aria-labelledby="pageTitle">
+          <div class="process-map-layout">
+            <section class="process-board">
+              <div class="section-heading">
+                <h2>Current Investigation Map</h2>
+                <p>A branching view of where we started, what we checked, and what is still alive.</p>
+              </div>
+              <div class="progress-rail" id="progressRail" aria-label="Investigation progress"></div>
+              <div class="branch-tree" id="branchTree"></div>
+            </section>
+            <aside class="process-summary" id="processSummary"></aside>
+          </div>
+        </section>
+
+        <section class="view" id="pipelineView" aria-labelledby="pageTitle">
+          <div class="split-layout">
+            <section class="process-panel">
+              <div class="section-heading">
+                <h2>Process Map</h2>
+                <p>Click a stage to see its input, output, and AI assist prompt.</p>
+              </div>
+              <ol class="pipeline" id="pipelineList"></ol>
+            </section>
+
+            <section class="detail-panel" id="stageDetail"></section>
+          </div>
+        </section>
+
+        <section class="view" id="severityView">
+          <div class="section-heading">
+            <h2>Severity Playbooks</h2>
+            <p>Use these as learning tracks and local test lanes, not as live scanners.</p>
+          </div>
+          <div class="segmented" id="severityTabs" role="tablist"></div>
+          <div class="severity-detail" id="severityDetail"></div>
+        </section>
+
+        <section class="view" id="expertsView">
+          <div class="section-heading">
+            <h2>All Stars Patterns</h2>
+            <p>Public profile signals converted into habits you can practice locally.</p>
+          </div>
+          <div class="expert-grid" id="expertGrid"></div>
+          <div class="source-note">
+            Source: Immunefi All Stars and public Immunefi researcher profiles. Treat this as pattern study, not personal attribution of private methods.
+          </div>
+        </section>
+
+        <section class="view" id="assetsView">
+          <div class="section-heading">
+            <h2>Asset Queue</h2>
+            <p>Ranked by likely bounty potential and review complexity.</p>
+          </div>
+          <div class="asset-table" id="assetTable"></div>
+        </section>
+
+        <section class="view" id="localView">
+          <div class="section-heading">
+            <h2>Local Analyzers</h2>
+            <p>Every action produces a local command, checklist, or prompt handoff.</p>
+          </div>
+          <div class="analyzer-layout">
+            <div class="analyzer-list" id="analyzerList"></div>
+            <pre class="command-output" id="commandOutput"></pre>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>

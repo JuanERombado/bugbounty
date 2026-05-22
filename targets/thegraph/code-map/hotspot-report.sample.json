@@ -1,0 +1,271 @@
+{
+  "target": {
+    "root": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\scripts",
+    "generated_at": "2026-05-21T19:07:35.194955+00:00",
+    "file_count": 5
+  },
+  "hotspots": [
+    {
+      "path": "map_contracts.py",
+      "score": 37.48,
+      "reasons": [
+        "Branches increase logic paths."
+      ],
+      "metrics": [
+        {
+          "name": "lines",
+          "value": 117,
+          "weight": 0.975,
+          "reason": "Large files hide state interactions."
+        },
+        {
+          "name": "branches",
+          "value": 23,
+          "weight": 34.5,
+          "reason": "Branches increase logic paths."
+        },
+        {
+          "name": "value_flows",
+          "value": 0,
+          "weight": 0,
+          "reason": "Value movement is bounty-relevant."
+        },
+        {
+          "name": "auth_terms",
+          "value": 1,
+          "weight": 2,
+          "reason": "Access control deserves review."
+        },
+        {
+          "name": "functions",
+          "value": 0,
+          "weight": 0,
+          "reason": "More entry points means more attack surface."
+        }
+      ],
+      "findings": [],
+      "symbols": [
+        "map",
+        "at"
+      ],
+      "tags": [
+        "staking",
+        "rewards",
+        "curation",
+        "dispute",
+        "bridge",
+        "escrow"
+      ]
+    },
+    {
+      "path": "check_submission_readiness.py",
+      "score": 18.69,
+      "reasons": [
+        "Branches increase logic paths."
+      ],
+      "metrics": [
+        {
+          "name": "lines",
+          "value": 83,
+          "weight": 0.6916666666666667,
+          "reason": "Large files hide state interactions."
+        },
+        {
+          "name": "branches",
+          "value": 12,
+          "weight": 18.0,
+          "reason": "Branches increase logic paths."
+        },
+        {
+          "name": "value_flows",
+          "value": 0,
+          "weight": 0,
+          "reason": "Value movement is bounty-relevant."
+        },
+        {
+          "name": "auth_terms",
+          "value": 0,
+          "weight": 0,
+          "reason": "Access control deserves review."
+        },
+        {
+          "name": "functions",
+          "value": 0,
+          "weight": 0,
+          "reason": "More entry points means more attack surface."
+        }
+      ],
+      "findings": [],
+      "symbols": [],
+      "tags": []
+    },
+    {
+      "path": "rank_assets.py",
+      "score": 16.23,
+      "reasons": [
+        "Branches increase logic paths."
+      ],
+      "metrics": [
+        {
+          "name": "lines",
+          "value": 87,
+          "weight": 0.725,
+          "reason": "Large files hide state interactions."
+        },
+        {
+          "name": "branches",
+          "value": 9,
+          "weight": 13.5,
+          "reason": "Branches increase logic paths."
+        },
+        {
+          "name": "value_flows",
+          "value": 0,
+          "weight": 0,
+          "reason": "Value movement is bounty-relevant."
+        },
+        {
+          "name": "auth_terms",
+          "value": 1,
+          "weight": 2,
+          "reason": "Access control deserves review."
+        },
+        {
+          "name": "functions",
+          "value": 0,
+          "weight": 0,
+          "reason": "More entry points means more attack surface."
+        }
+      ],
+      "findings": [],
+      "symbols": [],
+      "tags": [
+        "staking",
+        "rewards",
+        "curation",
+        "dispute",
+        "bridge",
+        "escrow",
+        "governance"
+      ]
+    },
+    {
+      "path": "simulate-subgraphservice-entity-fee-overflow.js",
+      "score": 14.97,
+      "reasons": [
+        "Branches increase logic paths.",
+        "More entry points means more attack surface."
+      ],
+      "metrics": [
+        {
+          "name": "lines",
+          "value": 57,
+          "weight": 0.475,
+          "reason": "Large files hide state interactions."
+        },
+        {
+          "name": "branches",
+          "value": 7,
+          "weight": 10.5,
+          "reason": "Branches increase logic paths."
+        },
+        {
+          "name": "value_flows",
+          "value": 0,
+          "weight": 0,
+          "reason": "Value movement is bounty-relevant."
+        },
+        {
+          "name": "auth_terms",
+          "value": 0,
+          "weight": 0,
+          "reason": "Access control deserves review."
+        },
+        {
+          "name": "functions",
+          "value": 4,
+          "weight": 4,
+          "reason": "More entry points means more attack surface."
+        }
+      ],
+      "findings": [],
+      "symbols": [
+        "checkedMul",
+        "checkedAdd",
+        "subgraphServiceExpectedTokens",
+        "recurringCollectorCap"
+      ],
+      "tags": []
+    },
+    {
+      "path": "new_target.py",
+      "score": 8.18,
+      "reasons": [
+        "Branches increase logic paths."
+      ],
+      "metrics": [
+        {
+          "name": "lines",
+          "value": 82,
+          "weight": 0.6833333333333333,
+          "reason": "Large files hide state interactions."
+        },
+        {
+          "name": "branches",
+          "value": 5,
+          "weight": 7.5,
+          "reason": "Branches increase logic paths."
+        },
+        {
+          "name": "value_flows",
+          "value": 0,
+          "weight": 0,
+          "reason": "Value movement is bounty-relevant."
+        },
+        {
+          "name": "auth_terms",
+          "value": 0,
+          "weight": 0,
+          "reason": "Access control deserves review."
+        },
+        {
+          "name": "functions",
+          "value": 0,
+          "weight": 0,
+          "reason": "More entry points means more attack surface."
+        }
+      ],
+      "findings": [],
+      "symbols": [],
+      "tags": []
+    }
+  ],
+  "findings": [],
+  "scanner_runs": [
+    {
+      "scanner": "complexity",
+      "command": [
+        "internal",
+        "complexity"
+      ],
+      "status": "ok",
+      "summary": "Scanned 5 source files with dependency-free heuristics.",
+      "elapsed_seconds": 0.00444340001558885
+    },
+    {
+      "scanner": "semgrep",
+      "command": [
+        "semgrep",
+        "scan",
+        "--config",
+        "auto",
+        "--json",
+        "--quiet",
+        "."
+      ],
+      "status": "skipped",
+      "summary": "Semgrep is not installed.",
+      "elapsed_seconds": 0
+    }
+  ]
+}

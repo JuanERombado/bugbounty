@@ -1,0 +1,10 @@
+external/
+.tools/
+.playwright-mcp/
+notes/*.html
+**/out/
+**/cache/
+**/artifacts/
+**/node_modules/
+**/__pycache__/
+*.pyc
