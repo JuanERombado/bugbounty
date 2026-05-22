@@ -1,0 +1,26 @@
+{
+  "run_id": "subgraphservice-real-h3-validation-001",
+  "target": "thegraph",
+  "contract": "SubgraphService",
+  "hypothesis_id": "SUBGRAPH-INV-3",
+  "validated_at": "2026-05-22",
+  "status": "alive_not_report_ready",
+  "behavior_reproduced": true,
+  "vulnerability_reproduced": false,
+  "report_ready": false,
+  "local_only": true,
+  "command": "forge test --match-test test_SubgraphService_CollectIndexingFees_Reverts_WhenEntityFeeRequestOverflowsBeforeCap -vv",
+  "cwd": "external/thegraph-contracts/packages/subgraph-service",
+  "result_summary": {
+    "exit_code": 0,
+    "tests_passed": 1,
+    "tests_failed": 0,
+    "fuzz_runs": 256
+  },
+  "harness_adjustments": [
+    "Evaluated epochManager.currentEpochBlock() before vm.expectRevert() so the expected revert applies to the collect call.",
+    "Skipped uint256(rcau.minSecondsPerCollection) + 1 seconds before collection so the test respects recurring collection timing."
+  ],
+  "security_interpretation": "The overflow/revert path is reachable under payer-signed extreme terms, but the current result does not prove unauthorized value loss, insolvency, or permanent denial of collection.",
+  "next_action": "Test whether any non-payer actor or normal-looking agreement update can force the same revert or block honest collection. If not, kill or downgrade this hypothesis."
+}
