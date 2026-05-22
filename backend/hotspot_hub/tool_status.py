@@ -51,7 +51,7 @@ CORE_TOOLS = [
     ToolSpec("Echidna", "echidna", ["--version"], "fuzzer", "high", "Runs Solidity property fuzzing and invariant testing."),
     ToolSpec("Medusa", "medusa", ["--version"], "fuzzer", "high", "Runs fast Solidity fuzz campaigns."),
     ToolSpec("Halmos", "halmos", ["--version"], "symbolic", "medium", "Runs symbolic testing for Foundry-style tests."),
-    ToolSpec("Mythril", "myth", ["--version"], "symbolic", "medium", "Runs EVM symbolic analysis for triage."),
+    ToolSpec("Mythril", "myth", ["version"], "symbolic", "medium", "Runs EVM symbolic analysis for triage."),
     ToolSpec("Scribble", "scribble", ["--version"], "instrumentation", "medium", "Instruments Solidity assertions for runtime checking."),
     ToolSpec("Aderyn", "aderyn", ["--version"], "scanner", "medium", "Runs an additional Solidity static-analysis perspective."),
     ToolSpec("Surya", "surya", ["--version"], "mapping", "low", "Generates Solidity inheritance, call graph, and structure views."),

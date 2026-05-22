@@ -31,6 +31,10 @@ def find_local_binary(binary: str, cwd: Path) -> str | None:
     names = [binary]
     if not binary.lower().endswith(".exe"):
         names.append(f"{binary}.exe")
+    if not binary.lower().endswith(".cmd"):
+        names.append(f"{binary}.cmd")
+    if not binary.lower().endswith(".bat"):
+        names.append(f"{binary}.bat")
 
     for root in [cwd, *cwd.parents]:
         for tool_dir in (root / ".tools").glob("*"):

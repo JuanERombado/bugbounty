@@ -2,10 +2,17 @@
   "workspace": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench",
   "python": "3.12.10",
   "local_tool_paths": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\aderyn",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\downloads",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\echidna",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\halmos\\Scripts",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\halmos\\bin",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\halmos",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\medusa",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\mythril\\Scripts",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\mythril",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\semgrep\\Scripts",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\semgrep",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither\\Scripts",
@@ -15,9 +22,14 @@
   ],
   "local_tool_dirs": [
     {
+      "name": "aderyn",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\aderyn",
+      "size_mb": 0.0
+    },
+    {
       "name": "downloads",
       "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\downloads",
-      "size_mb": 20.7
+      "size_mb": 32.4
     },
     {
       "name": "echidna",
@@ -28,6 +40,21 @@
       "name": "foundry",
       "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry",
       "size_mb": 175.0
+    },
+    {
+      "name": "halmos",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\halmos",
+      "size_mb": 179.4
+    },
+    {
+      "name": "medusa",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\medusa",
+      "size_mb": 32.4
+    },
+    {
+      "name": "mythril",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\mythril",
+      "size_mb": 11.0
     },
     {
       "name": "semgrep",
@@ -45,7 +72,7 @@
       "size_mb": 21.7
     }
   ],
-  "local_tools_total_mb": 733.7,
+  "local_tools_total_mb": 968.2,
   "tools": [
     {
       "name": "Python",
@@ -209,11 +236,11 @@
       "category": "fuzzer",
       "priority": "high",
       "purpose": "Runs fast Solidity fuzz campaigns.",
-      "installed": false,
-      "source": null,
-      "version": null,
-      "local_size_mb": null,
-      "status": "missing"
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\medusa\\medusa.exe",
+      "version": "medusa version 1.5.1",
+      "local_size_mb": 32.4,
+      "status": "installed"
     },
     {
       "name": "Halmos",
@@ -221,11 +248,11 @@
       "category": "symbolic",
       "priority": "medium",
       "purpose": "Runs symbolic testing for Foundry-style tests.",
-      "installed": false,
-      "source": null,
-      "version": null,
-      "local_size_mb": null,
-      "status": "missing"
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\halmos\\Scripts\\halmos.exe",
+      "version": "halmos 0.3.3",
+      "local_size_mb": 179.4,
+      "status": "installed"
     },
     {
       "name": "Mythril",
@@ -233,11 +260,11 @@
       "category": "symbolic",
       "priority": "medium",
       "purpose": "Runs EVM symbolic analysis for triage.",
-      "installed": false,
-      "source": null,
-      "version": null,
-      "local_size_mb": null,
-      "status": "missing"
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\mythril\\Scripts\\myth.cmd",
+      "version": "Mythril version v0.24.8",
+      "local_size_mb": 11.0,
+      "status": "installed"
     },
     {
       "name": "Scribble",
@@ -245,11 +272,11 @@
       "category": "instrumentation",
       "priority": "medium",
       "purpose": "Instruments Solidity assertions for runtime checking.",
-      "installed": false,
-      "source": null,
-      "version": null,
+      "installed": true,
+      "source": "C:\\Users\\jromb\\AppData\\Roaming\\npm\\scribble.CMD",
+      "version": "0.7.10",
       "local_size_mb": null,
-      "status": "missing"
+      "status": "installed"
     },
     {
       "name": "Aderyn",
@@ -257,11 +284,11 @@
       "category": "scanner",
       "priority": "medium",
       "purpose": "Runs an additional Solidity static-analysis perspective.",
-      "installed": false,
-      "source": null,
-      "version": null,
-      "local_size_mb": null,
-      "status": "missing"
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\aderyn\\aderyn.cmd",
+      "version": "aderyn 0.6.8",
+      "local_size_mb": 0.0,
+      "status": "installed"
     },
     {
       "name": "Surya",
@@ -269,11 +296,11 @@
       "category": "mapping",
       "priority": "low",
       "purpose": "Generates Solidity inheritance, call graph, and structure views.",
-      "installed": false,
-      "source": null,
-      "version": null,
+      "installed": true,
+      "source": "C:\\Users\\jromb\\AppData\\Roaming\\npm\\surya.CMD",
+      "version": "0.4.13",
       "local_size_mb": null,
-      "status": "missing"
+      "status": "installed"
     },
     {
       "name": "jq",
@@ -281,11 +308,11 @@
       "category": "utility",
       "priority": "medium",
       "purpose": "Inspects scanner JSON output from the terminal.",
-      "installed": false,
-      "source": null,
-      "version": null,
+      "installed": true,
+      "source": "C:\\Users\\jromb\\AppData\\Local\\Microsoft\\WinGet\\Links\\jq.EXE",
+      "version": "jq-1.8.1",
       "local_size_mb": null,
-      "status": "missing"
+      "status": "installed"
     },
     {
       "name": "Graphviz dot",
@@ -293,11 +320,11 @@
       "category": "utility",
       "priority": "medium",
       "purpose": "Renders call graphs and architecture diagrams.",
-      "installed": false,
-      "source": null,
-      "version": null,
+      "installed": true,
+      "source": "C:\\Program Files\\Graphviz\\bin\\dot.EXE",
+      "version": "dot - graphviz version 14.1.5 (20260411.2331)",
       "local_size_mb": null,
-      "status": "missing"
+      "status": "installed"
     },
     {
       "name": "Docker",
