@@ -1,0 +1,12 @@
+{
+  "run_id": "vulnerable-vault-fixture-slice",
+  "fixture": "vulnerable-vault",
+  "judged_at": "2026-05-22T18:08:42.468958+00:00",
+  "status": "reproduced",
+  "rationale": "Seeded vulnerable invariant failed and fixed-contract invariant passed.",
+  "vulnerable_result": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\targets\\fixtures\\runs\\vulnerable-vault-fixture-slice\\vulnerable-result.json",
+  "fixed_result": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\targets\\fixtures\\runs\\vulnerable-vault-fixture-slice\\fixed-result.json",
+  "reproduced": true,
+  "report_ready": false,
+  "safety_note": "Seeded local fixture only. This is pipeline evidence, not bounty evidence."
+}

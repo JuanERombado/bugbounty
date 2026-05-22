@@ -1,0 +1,14 @@
+{
+  "runner": "foundry",
+  "project_dir": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\targets\\thegraph\\pocs\\generated\\real-2026-05-22T180919-subgraphservice-smoke-001",
+  "command": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\forge.exe",
+    "test",
+    "-vv"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 1.973,
+  "stdout": "Compiling 77 files with Solc 0.8.27\nSolc 0.8.27 finished in 1.40s\nCompiler run successful!\n\nRan 1 test for test/SubgraphServiceRealHarness.t.sol:SubgraphServiceRealHarnessTest\n[PASS] test_SMOKE_001_realHarnessCompiles() (gas: 97)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 397.00\u00c2\u00b5s (51.30\u00c2\u00b5s CPU time)\n\nRan 1 test suite in 2.93ms (397.00\u00c2\u00b5s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+  "stderr": "",
+  "passed": true
+}
