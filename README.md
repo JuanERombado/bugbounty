@@ -138,6 +138,14 @@ Generate a real-contract compile smoke harness:
 python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id SMOKE-001
 ```
 
+Run the first meaningful The Graph invariant slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id OWNER-ACCESS-001 --run-id real-subgraphservice-owner-access-001
+```
+
+This local-only harness deploys `SubgraphService` through an `ERC1967Proxy`, uses a mock Graph controller, and checks that non-owners cannot change economic settings while the owner can.
+
 Possible statuses include `compile_failed`, `harness_needs_mocks`, `test_failed`, `invariant_failed_promising`, and `clean`.
 
 Compile failures are harness work, not security findings.
