@@ -89,6 +89,30 @@ python -m backend.hotspot_hub.cli prompt "targets/thegraph/code-map/hotspot-repo
 
 Tooling disk-space plan: `knowledge/tooling-size-plan.md`.
 
+## Architecture
+
+The workbench is a lean exploit-validation system:
+
+1. Local scanners and code maps rank attack surface.
+2. Canned or local model providers generate hypotheses.
+3. Foundry fixtures and real harnesses decide whether a hypothesis survives.
+4. Result judges mark evidence status conservatively.
+5. Reports stay blocked until a reproducible local PoC and scope/impact gates exist.
+
+AI output is untrusted until local tests prove it.
+
+## Fixture Demo
+
+Before using a real bounty target, prove the pipeline on a seeded vulnerable fixture:
+
+```powershell
+python -m backend.hotspot_hub.cli validate fixture-slice --fixture vulnerable-vault
+```
+
+Expected status: `reproduced`.
+
+The vulnerable vault has a withdrawal-accounting bug and an access-control bug; the fixed vault in the same fixture must pass.
+
 ## Exploit-Validation Slice
 
 Generate three invariant ideas, create a Foundry scaffold, run `forge test`, and store the result:
@@ -103,6 +127,35 @@ Artifacts are written to:
 - `targets/thegraph/pocs/generated/<run-id>/`
 
 A passing generated scaffold is not report evidence; it only proves the local validation loop works.
+
+The legacy generated Foundry command is now explicitly `scaffold_only`.
+
+## Real Foundry Slice
+
+Generate a real-contract compile smoke harness:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id SMOKE-001
+```
+
+Possible statuses include `compile_failed`, `harness_needs_mocks`, `test_failed`, `invariant_failed_promising`, and `clean`.
+
+Compile failures are harness work, not security findings.
+
+## Model Providers
+
+Hypothesis generation works without any model keys:
+
+```powershell
+python -m backend.hotspot_hub.cli hypotheses generate --provider canned --hotspot-report queues/examples/hotspot-report.example.json --out targets/thegraph/hypotheses/generated.json
+```
+
+Optional providers:
+
+- `ollama`: enabled only when `OLLAMA_BASE_URL` is set.
+- `openai`: enabled only when `OPENAI_API_KEY` is set.
+
+Local or frontier models generate hypotheses only; Foundry/Echidna/Slither/local tools decide truth.
 
 ## Local Research Worker
 

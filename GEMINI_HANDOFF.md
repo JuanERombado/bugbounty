@@ -2,6 +2,17 @@
 
 This repo is a local-only bug bounty workbench for Immunefi-style Web3 research.
 
+## Critikal Hybrid Direction
+
+This repo remains the foundation. We are borrowing only narrow architectural ideas from Critikal:
+
+- seeded fixture-first validation
+- real Foundry harness attempts
+- provider abstraction for hypotheses
+- conservative result statuses
+
+We are not adding autonomous agent farms, live recon, jury systems, or auto-reporting yet.
+
 ## North Star
 
 The workflow is report-first: every lead must eventually map to an in-scope asset, accepted paid impact, duplicate-risk decision, local PoC, and Immunefi-style report draft.
