@@ -4,7 +4,8 @@
   "local_tool_paths": [
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\semgrep\\Scripts",
-    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither\\Scripts"
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither\\Scripts",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\solc-select\\Scripts"
   ],
   "local_tool_dirs": [
     {
@@ -21,9 +22,14 @@
       "name": "slither",
       "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither",
       "size_mb": 89.6
+    },
+    {
+      "name": "solc-select",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\solc-select",
+      "size_mb": 21.7
     }
   ],
-  "local_tools_total_mb": 605.4,
+  "local_tools_total_mb": 627.0,
   "tools": [
     {
       "name": "Python",
@@ -58,6 +64,18 @@
       "installed": true,
       "source": "C:\\Program Files\\nodejs\\npm.CMD",
       "version": "11.6.2",
+      "local_size_mb": null,
+      "status": "installed"
+    },
+    {
+      "name": "pnpm",
+      "binary": "pnpm",
+      "category": "runtime",
+      "priority": "high",
+      "purpose": "Installs target JavaScript dependencies with a shared package store.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\AppData\\Roaming\\npm\\pnpm.CMD",
+      "version": "10.25.0",
       "local_size_mb": null,
       "status": "installed"
     },
@@ -110,6 +128,30 @@
       "status": "installed"
     },
     {
+      "name": "Solidity compiler",
+      "binary": "solc",
+      "category": "smart-contract",
+      "priority": "required",
+      "purpose": "Compiles Solidity contracts outside Foundry when scanners need a standalone compiler.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither\\Scripts\\solc.exe",
+      "version": "solc, the solidity compiler commandline interface",
+      "local_size_mb": 89.6,
+      "status": "installed"
+    },
+    {
+      "name": "solc-select",
+      "binary": "solc-select",
+      "category": "smart-contract",
+      "priority": "required",
+      "purpose": "Installs and switches exact Solidity compiler versions.",
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither\\Scripts\\solc-select.exe",
+      "version": "usage: solc-select [-h] {install,use,versions,upgrade} ...",
+      "local_size_mb": 89.6,
+      "status": "installed"
+    },
+    {
       "name": "Slither",
       "binary": "slither",
       "category": "scanner",
@@ -132,6 +174,114 @@
       "version": "1.163.0",
       "local_size_mb": 340.8,
       "status": "installed"
+    },
+    {
+      "name": "Echidna",
+      "binary": "echidna",
+      "category": "fuzzer",
+      "priority": "high",
+      "purpose": "Runs Solidity property fuzzing and invariant testing.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
+    },
+    {
+      "name": "Medusa",
+      "binary": "medusa",
+      "category": "fuzzer",
+      "priority": "high",
+      "purpose": "Runs fast Solidity fuzz campaigns.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
+    },
+    {
+      "name": "Halmos",
+      "binary": "halmos",
+      "category": "symbolic",
+      "priority": "medium",
+      "purpose": "Runs symbolic testing for Foundry-style tests.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
+    },
+    {
+      "name": "Mythril",
+      "binary": "myth",
+      "category": "symbolic",
+      "priority": "medium",
+      "purpose": "Runs EVM symbolic analysis for triage.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
+    },
+    {
+      "name": "Scribble",
+      "binary": "scribble",
+      "category": "instrumentation",
+      "priority": "medium",
+      "purpose": "Instruments Solidity assertions for runtime checking.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
+    },
+    {
+      "name": "Aderyn",
+      "binary": "aderyn",
+      "category": "scanner",
+      "priority": "medium",
+      "purpose": "Runs an additional Solidity static-analysis perspective.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
+    },
+    {
+      "name": "Surya",
+      "binary": "surya",
+      "category": "mapping",
+      "priority": "low",
+      "purpose": "Generates Solidity inheritance, call graph, and structure views.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
+    },
+    {
+      "name": "jq",
+      "binary": "jq",
+      "category": "utility",
+      "priority": "medium",
+      "purpose": "Inspects scanner JSON output from the terminal.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
+    },
+    {
+      "name": "Graphviz dot",
+      "binary": "dot",
+      "category": "utility",
+      "priority": "medium",
+      "purpose": "Renders call graphs and architecture diagrams.",
+      "installed": false,
+      "source": null,
+      "version": null,
+      "local_size_mb": null,
+      "status": "missing"
     },
     {
       "name": "Docker",

@@ -11,10 +11,10 @@ These are practical disk-space estimates for a Windows local bug bounty workbenc
 | Git | Clone target repos and inspect history | Required | 200-400 MB | Installed globally |
 | Slither / `slither-analyzer` | Solidity static analysis | Required | 90-250 MB | Installed locally: `.tools/slither` is ~90 MB |
 | Foundry / `forge` | Compile and run local Solidity tests | Required | 100-300 MB | Installed locally: `.tools/foundry` is ~175 MB |
-| Solidity compiler / `solc` | Compile Solidity contracts | Required | 20-80 MB per compiler version | Not installed |
+| Solidity compiler / `solc` + `solc-select` | Compile Solidity contracts and switch exact compiler versions | Required | 20-100 MB | Installed locally; versions `0.8.27`, `0.8.22`, `0.7.6`, `0.7.3` |
 | Semgrep | General static analysis rules | High | 200-700 MB | Installed locally: `.tools/semgrep` is ~341 MB |
 | Hardhat project deps | Compile/test JS/TS Solidity repos | High | 500 MB-2 GB per repo | Target-dependent |
-| pnpm | Smaller/faster JS dependency installs | Medium | 50-150 MB plus shared store | Not installed |
+| pnpm | Smaller/faster JS dependency installs | Medium | 50-150 MB plus shared store | Installed globally |
 
 ## Advanced Analysis Stack
 
@@ -50,4 +50,24 @@ These are practical disk-space estimates for a Windows local bug bounty workbenc
 - Slither: installed locally at `.tools/slither`, about 90 MB.
 - Foundry: installed locally at `.tools/foundry`, about 175 MB.
 - Semgrep: installed locally at `.tools/semgrep`, about 341 MB.
-- Current `.tools` total: about 605 MB.
+- `solc-select`: installed locally at `.tools/solc-select`, about 22 MB, with compiler versions `0.8.27`, `0.8.22`, `0.7.6`, and `0.7.3`.
+- pnpm: installed globally, version `10.25.0`.
+- Docker: installed globally.
+- Cargo: installed globally.
+- Current `.tools` total: about 627 MB.
+
+## Remaining Install Queue
+
+| Count | Tool | Priority | Why It Matters |
+|---:|---|---|---|
+| 1 | Echidna | High | Property fuzzing and invariant testing for local Solidity contracts. |
+| 2 | Medusa | High | Fast fuzzing complement to Echidna for long campaigns. |
+| 3 | jq | Medium | Faster JSON triage for scanner and run artifacts. |
+| 4 | Graphviz | Medium | Renders Slither/Surya call graphs and inheritance diagrams. |
+| 5 | Halmos | Medium | Symbolic testing for Foundry-style tests. |
+| 6 | Scribble | Medium | Adds runtime assertions to Solidity for invariant scaffolding. |
+| 7 | Aderyn | Medium | Extra Solidity static-analysis perspective. |
+| 8 | Mythril | Medium | EVM symbolic analysis; useful but can be noisy. |
+| 9 | Surya | Low | Solidity call graph and inheritance visualization. |
+
+Target-specific dependency installs, such as Hardhat package installs inside cloned repos, are not counted as global workbench tools.
