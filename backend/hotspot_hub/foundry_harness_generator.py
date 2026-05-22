@@ -1,4 +1,4 @@
-"""Generate a Foundry scaffold for validating queued hypotheses."""
+"""Generate a placeholder-only Foundry scaffold for validating queue plumbing."""
 
 from __future__ import annotations
 
@@ -147,6 +147,8 @@ Target: `{queue_payload["target"]}`
 Contract: `{queue_payload["contract_name"]}`
 
 Source path: `{queue_payload["contract_path"]}`
+
+Status: `scaffold_only`
 
 This is a compile-and-run scaffold, not a confirmed PoC.
 

@@ -7,11 +7,14 @@ import json
 from pathlib import Path
 
 from .engine import HotspotEngine
+from .fixture_validator import run_fixture_slice
 from .foundry_harness_generator import generate_foundry_scaffold
+from .hypothesis_generator import generate_hypotheses
 from .hypothesis_queue import default_invariant_candidates, make_run_id, write_queue
 from .local_llm import analyze_hotspot, analyze_prompt_file, ping_local_llm
 from .prompt_builder import build_hotspot_prompt
 from .queue_generator import generate_hotspot_worker_queue
+from .real_foundry_validator import run_real_foundry_slice
 from .result_judge import judge_foundry_result
 from .target_initializer import initialize_target
 from .test_runner import run_foundry_tests
@@ -118,6 +121,33 @@ def foundry_slice_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def fixture_slice_command(args: argparse.Namespace) -> int:
+    summary = run_fixture_slice(Path.cwd(), args.fixture, args.run_id, args.timeout)
+    print(json.dumps(summary, indent=2))
+    return 0
+
+
+def real_foundry_slice_command(args: argparse.Namespace) -> int:
+    summary = run_real_foundry_slice(
+        Path.cwd(),
+        target=args.target,
+        repo_root=args.repo_root,
+        contract_path=args.contract_path,
+        contract_name=args.contract_name,
+        hypothesis_id=args.hypothesis_id,
+        run_id=args.run_id,
+        timeout_seconds=args.timeout,
+    )
+    print(json.dumps(summary, indent=2))
+    return 0
+
+
+def hypotheses_generate_command(args: argparse.Namespace) -> int:
+    payload = generate_hypotheses(args.provider, args.hotspot_report, args.out, args.max_items)
+    print(json.dumps({"provider": payload["provider"], "out": str(args.out), "count": len(payload["hypotheses"])}, indent=2))
+    return 0
+
+
 def worker_run_command(args: argparse.Namespace) -> int:
     summary = run_worker_queue(args.queue, Path.cwd(), args.out_dir, args.max_jobs)
     print(json.dumps(summary, indent=2))
@@ -212,6 +242,32 @@ def build_parser() -> argparse.ArgumentParser:
     foundry.add_argument("--run-id", help="Optional stable run id")
     foundry.add_argument("--timeout", type=int, default=180, help="Forge test timeout in seconds")
     foundry.set_defaults(func=foundry_slice_command)
+
+    fixture = validate_subparsers.add_parser("fixture-slice", help="Run a seeded local vulnerable fixture")
+    fixture.add_argument("--fixture", required=True, help="Fixture name under test_fixtures/")
+    fixture.add_argument("--run-id", help="Optional stable run id")
+    fixture.add_argument("--timeout", type=int, default=180, help="Forge test timeout in seconds")
+    fixture.set_defaults(func=fixture_slice_command)
+
+    real_foundry = validate_subparsers.add_parser("real-foundry-slice", help="Generate and run a real-contract Foundry harness")
+    real_foundry.add_argument("--target", required=True, help="Target slug under targets/")
+    real_foundry.add_argument("--repo-root", type=Path, required=True, help="Target repository root")
+    real_foundry.add_argument("--contract-path", required=True, help="Contract import path relative to repo root")
+    real_foundry.add_argument("--contract-name", required=True, help="Contract name to import")
+    real_foundry.add_argument("--hypothesis-id", required=True, help="Hypothesis id being tested")
+    real_foundry.add_argument("--run-id", help="Optional stable run id")
+    real_foundry.add_argument("--timeout", type=int, default=180, help="Forge test timeout in seconds")
+    real_foundry.set_defaults(func=real_foundry_slice_command)
+
+    hypotheses = subparsers.add_parser("hypotheses", help="Generate hypothesis candidates")
+    hypotheses_subparsers = hypotheses.add_subparsers(dest="hypotheses_command", required=True)
+
+    hypotheses_generate = hypotheses_subparsers.add_parser("generate", help="Generate hypotheses from a hotspot report")
+    hypotheses_generate.add_argument("--provider", choices=["canned", "ollama", "openai"], default="canned")
+    hypotheses_generate.add_argument("--hotspot-report", type=Path, required=True)
+    hypotheses_generate.add_argument("--out", type=Path, required=True)
+    hypotheses_generate.add_argument("--max-items", type=int, default=5)
+    hypotheses_generate.set_defaults(func=hypotheses_generate_command)
 
     worker = subparsers.add_parser("worker", help="Run bounded local research jobs from a queue")
     worker_subparsers = worker.add_subparsers(dest="worker_command", required=True)
