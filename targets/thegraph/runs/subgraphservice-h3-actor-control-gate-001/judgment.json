@@ -1,0 +1,22 @@
+{
+  "run_id": "subgraphservice-h3-actor-control-gate-001",
+  "target": "thegraph",
+  "contract": "SubgraphService",
+  "hypothesis_id": "SUBGRAPH-INV-3",
+  "validated_at": "2026-05-22",
+  "status": "rejected_unauthorized_signer_path",
+  "behavior_reproduced": false,
+  "vulnerability_reproduced": false,
+  "report_ready": false,
+  "local_only": true,
+  "command": "forge test --match-test \"test_SubgraphService_UpdateIndexingAgreement_InvalidSignerDoesNotPersistOverflowTerms|test_SubgraphService_UpdateIndexingAgreement_ReplayDoesNotRestoreOverflowTerms\" -vv",
+  "cwd": "external/thegraph-contracts/packages/subgraph-service",
+  "result_summary": {
+    "exit_code": 0,
+    "tests_passed": 2,
+    "tests_failed": 0,
+    "fuzz_runs_each": 256
+  },
+  "security_interpretation": "A non-payer signer cannot persist overflow-prone terms through SubgraphService. The collector rejects the unauthorized update and the whole transaction rolls back, so later collection remains safe.",
+  "next_action": "Check contract-payer or stored-offer authorization. If that path also requires payer-controlled approval, close H3 as not bounty-relevant."
+}
