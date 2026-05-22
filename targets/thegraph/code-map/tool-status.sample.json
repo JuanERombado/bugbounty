@@ -2,12 +2,28 @@
   "workspace": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench",
   "python": "3.12.10",
   "local_tool_paths": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\downloads",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\echidna",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\semgrep\\Scripts",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\semgrep",
     "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither\\Scripts",
-    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\solc-select\\Scripts"
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\slither",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\solc-select\\Scripts",
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\solc-select"
   ],
   "local_tool_dirs": [
+    {
+      "name": "downloads",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\downloads",
+      "size_mb": 20.7
+    },
+    {
+      "name": "echidna",
+      "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\echidna",
+      "size_mb": 86.0
+    },
     {
       "name": "foundry",
       "path": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry",
@@ -29,7 +45,7 @@
       "size_mb": 21.7
     }
   ],
-  "local_tools_total_mb": 627.0,
+  "local_tools_total_mb": 733.7,
   "tools": [
     {
       "name": "Python",
@@ -181,11 +197,11 @@
       "category": "fuzzer",
       "priority": "high",
       "purpose": "Runs Solidity property fuzzing and invariant testing.",
-      "installed": false,
-      "source": null,
-      "version": null,
-      "local_size_mb": null,
-      "status": "missing"
+      "installed": true,
+      "source": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\echidna\\echidna.exe",
+      "version": "Echidna 2.3.2",
+      "local_size_mb": 86.0,
+      "status": "installed"
     },
     {
       "name": "Medusa",

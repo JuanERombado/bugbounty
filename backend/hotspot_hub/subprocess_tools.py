@@ -36,7 +36,7 @@ def find_local_binary(binary: str, cwd: Path) -> str | None:
         for tool_dir in (root / ".tools").glob("*"):
             scripts_dir = tool_dir / "Scripts"
             bin_dir = tool_dir / "bin"
-            for candidate_dir in (scripts_dir, bin_dir):
+            for candidate_dir in (scripts_dir, bin_dir, tool_dir):
                 for name in names:
                     candidate = candidate_dir / name
                     if candidate.exists():
@@ -53,7 +53,7 @@ def local_tool_paths(cwd: Path) -> list[str]:
         for tool_dir in tools_root.glob("*"):
             if not tool_dir.is_dir():
                 continue
-            for candidate_dir in (tool_dir / "Scripts", tool_dir / "bin"):
+            for candidate_dir in (tool_dir / "Scripts", tool_dir / "bin", tool_dir):
                 if candidate_dir.exists():
                     paths.append(str(candidate_dir))
     return paths

@@ -20,7 +20,7 @@ These are practical disk-space estimates for a Windows local bug bounty workbenc
 
 | Tool | Purpose | Install Priority | Rough Disk Use | Notes |
 |---|---:|---:|---:|---|
-| Echidna | Solidity property fuzzing | High | 50-200 MB | Strong for invariant testing |
+| Echidna | Solidity property fuzzing | High | 50-200 MB | Installed locally: `.tools/echidna` is ~86 MB |
 | Medusa | Fast Solidity fuzzing | High | 50-200 MB | Useful complement to Echidna |
 | Halmos | Symbolic testing for Foundry projects | Medium | 150-600 MB | Often pulls solver dependencies |
 | Mythril | EVM symbolic analysis | Medium | 300 MB-1 GB | Can be noisy but useful for triage |
@@ -51,23 +51,23 @@ These are practical disk-space estimates for a Windows local bug bounty workbenc
 - Foundry: installed locally at `.tools/foundry`, about 175 MB.
 - Semgrep: installed locally at `.tools/semgrep`, about 341 MB.
 - `solc-select`: installed locally at `.tools/solc-select`, about 22 MB, with compiler versions `0.8.27`, `0.8.22`, `0.7.6`, and `0.7.3`.
+- Echidna: installed locally at `.tools/echidna`, about 86 MB, version `2.3.2`.
 - pnpm: installed globally, version `10.25.0`.
 - Docker: installed globally.
 - Cargo: installed globally.
-- Current `.tools` total: about 627 MB.
+- Current `.tools` total: about 734 MB.
 
 ## Remaining Install Queue
 
 | Count | Tool | Priority | Why It Matters |
 |---:|---|---|---|
-| 1 | Echidna | High | Property fuzzing and invariant testing for local Solidity contracts. |
-| 2 | Medusa | High | Fast fuzzing complement to Echidna for long campaigns. |
-| 3 | jq | Medium | Faster JSON triage for scanner and run artifacts. |
-| 4 | Graphviz | Medium | Renders Slither/Surya call graphs and inheritance diagrams. |
-| 5 | Halmos | Medium | Symbolic testing for Foundry-style tests. |
-| 6 | Scribble | Medium | Adds runtime assertions to Solidity for invariant scaffolding. |
-| 7 | Aderyn | Medium | Extra Solidity static-analysis perspective. |
-| 8 | Mythril | Medium | EVM symbolic analysis; useful but can be noisy. |
-| 9 | Surya | Low | Solidity call graph and inheritance visualization. |
+| 1 | Medusa | High | Fast fuzzing complement to Echidna for long campaigns. |
+| 2 | jq | Medium | Faster JSON triage for scanner and run artifacts. |
+| 3 | Graphviz | Medium | Renders Slither/Surya call graphs and inheritance diagrams. |
+| 4 | Halmos | Medium | Symbolic testing for Foundry-style tests. |
+| 5 | Scribble | Medium | Adds runtime assertions to Solidity for invariant scaffolding. |
+| 6 | Aderyn | Medium | Extra Solidity static-analysis perspective. |
+| 7 | Mythril | Medium | EVM symbolic analysis; useful but can be noisy. |
+| 8 | Surya | Low | Solidity call graph and inheritance visualization. |
 
 Target-specific dependency installs, such as Hardhat package installs inside cloned repos, are not counted as global workbench tools.
