@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .models import utc_now_iso
+
 
 def generate_real_foundry_harness(
     project_dir: Path,
@@ -31,8 +33,12 @@ def generate_real_foundry_harness(
         "contract_path": contract_path,
         "contract_name": contract_name,
         "hypothesis_id": hypothesis_id,
+        "generated_at": utc_now_iso(),
+        "harness_type": "real_contract_compile_smoke",
+        "setup_status": "not_wired",
         "status": "real_harness_generated",
         "report_ready": False,
+        "safety_note": "Local compile smoke only. No live systems, RPC endpoints, or public deployments are tested.",
     }
 
     written = [
@@ -112,7 +118,21 @@ contract {contract_name}RealHarnessTest {{
 
     // Hypothesis: {hypothesis_id}
     // This file only proves whether a real-contract harness can compile.
-    // Replace this constructor path with mocks/setup before interpreting runtime failures.
+    //
+    // TODO 1 - Constructor/setup requirements:
+    // Identify constructor args, initializer calls, inherited setup, and any proxy wiring needed for real deployment.
+    //
+    // TODO 2 - External dependency mocks:
+    // Replace protocol dependencies with minimal local mocks that preserve the tested behavior.
+    //
+    // TODO 3 - Actor roles:
+    // Define owner, operator, attacker, service provider, and any other relevant actors with explicit permissions.
+    //
+    // TODO 4 - Value/accounting invariant:
+    // State one property that must always hold across deposits, withdrawals, allocations, rewards, or balance changes.
+    //
+    // TODO 5 - Expected accepted impact mapping:
+    // Map the invariant to an in-scope Immunefi impact before treating any failure as bounty evidence.
     function test_{_safe_identifier(hypothesis_id)}_realHarnessCompiles() public view {{
         target;
     }}
@@ -895,7 +915,7 @@ Statuses are conservative:
 
 - `compile_failed`: imports/remappings/mocks need work.
 - `harness_needs_mocks`: constructor or setup is not wired.
-- `clean`: generated compile smoke passed.
+- `clean_compile_smoke`: generated compile smoke passed.
 
 Generated tests alone are never report-ready.
 """

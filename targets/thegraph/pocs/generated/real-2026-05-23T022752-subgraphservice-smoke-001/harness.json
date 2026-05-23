@@ -1,0 +1,14 @@
+{
+  "run_id": "real-2026-05-23T022752-subgraphservice-smoke-001",
+  "target": "thegraph",
+  "repo_root": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\external\\thegraph-contracts",
+  "contract_path": "packages/subgraph-service/contracts/SubgraphService.sol",
+  "contract_name": "SubgraphService",
+  "hypothesis_id": "SMOKE-001",
+  "generated_at": "2026-05-23T02:27:52.680691+00:00",
+  "harness_type": "real_contract_compile_smoke",
+  "setup_status": "not_wired",
+  "status": "real_harness_generated",
+  "report_ready": false,
+  "safety_note": "Local compile smoke only. No live systems, RPC endpoints, or public deployments are tested."
+}

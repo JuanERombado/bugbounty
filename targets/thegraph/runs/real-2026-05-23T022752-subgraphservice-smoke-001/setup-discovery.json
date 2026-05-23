@@ -1,0 +1,267 @@
+{
+  "run_id": "real-2026-05-23T022752-subgraphservice-smoke-001",
+  "target": "thegraph",
+  "repo_root": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\external\\thegraph-contracts",
+  "contract_path": "packages/subgraph-service/contracts/SubgraphService.sol",
+  "contract_name": "SubgraphService",
+  "source_file": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\external\\thegraph-contracts\\packages\\subgraph-service\\contracts\\SubgraphService.sol",
+  "generated_at": "2026-05-23T02:27:52.683242+00:00",
+  "contract_declaration_line": {
+    "line": 39,
+    "text": "contract SubgraphService is Initializable, OwnableUpgradeable, MulticallUpgradeable, DataService, DataServicePausableUpgradeable, DataServiceFees, Directory, AllocationManager, IRewardsIssuer, ISubgraphService, SubgraphServiceV2Storage"
+  },
+  "constructor_signature": "constructor( address graphController, address disputeManager, address graphTallyCollector, address curation, address recurringCollector ) DataService(graphController) Directory(address(this), disputeManager, graphTallyCollector, curation, recurringCollector)",
+  "inherited_contracts": [
+    "Initializable",
+    "OwnableUpgradeable",
+    "MulticallUpgradeable",
+    "DataService",
+    "DataServicePausableUpgradeable",
+    "DataServiceFees",
+    "Directory",
+    "AllocationManager",
+    "IRewardsIssuer",
+    "ISubgraphService",
+    "SubgraphServiceV2Storage"
+  ],
+  "imports": [
+    "import { IGraphPayments } from \"@graphprotocol/interfaces/contracts/horizon/IGraphPayments.sol\";",
+    "import { IGraphToken } from \"@graphprotocol/interfaces/contracts/contracts/token/IGraphToken.sol\";",
+    "import { IGraphTallyCollector } from \"@graphprotocol/interfaces/contracts/horizon/IGraphTallyCollector.sol\";",
+    "import { IRewardsIssuer } from \"@graphprotocol/interfaces/contracts/contracts/rewards/IRewardsIssuer.sol\";",
+    "import { IDataService } from \"@graphprotocol/interfaces/contracts/data-service/IDataService.sol\";",
+    "import { IDataServiceAgreements } from \"@graphprotocol/interfaces/contracts/data-service/IDataServiceAgreements.sol\";",
+    "import { ISubgraphService } from \"@graphprotocol/interfaces/contracts/subgraph-service/ISubgraphService.sol\";",
+    "import { IAllocation } from \"@graphprotocol/interfaces/contracts/subgraph-service/internal/IAllocation.sol\";",
+    "import { IIndexingAgreement } from \"@graphprotocol/interfaces/contracts/subgraph-service/internal/IIndexingAgreement.sol\";",
+    "import { ILegacyAllocation } from \"@graphprotocol/interfaces/contracts/subgraph-service/internal/ILegacyAllocation.sol\";",
+    "import { IRecurringCollector } from \"@graphprotocol/interfaces/contracts/horizon/IRecurringCollector.sol\";",
+    "import { OwnableUpgradeable } from \"@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\";",
+    "import { MulticallUpgradeable } from \"@openzeppelin/contracts-upgradeable/utils/MulticallUpgradeable.sol\";",
+    "import { Initializable } from \"@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol\";",
+    "import { DataServicePausableUpgradeable } from \"@graphprotocol/horizon/contracts/data-service/extensions/DataServicePausableUpgradeable.sol\";",
+    "import { DataService } from \"@graphprotocol/horizon/contracts/data-service/DataService.sol\";",
+    "import { DataServiceFees } from \"@graphprotocol/horizon/contracts/data-service/extensions/DataServiceFees.sol\";",
+    "import { Directory } from \"./utilities/Directory.sol\";",
+    "import { AllocationManager } from \"./utilities/AllocationManager.sol\";",
+    "import { SubgraphServiceV2Storage } from \"./SubgraphServiceStorage.sol\";",
+    "import { TokenUtils } from \"@graphprotocol/contracts/contracts/utils/TokenUtils.sol\";",
+    "import { PPMMath } from \"@graphprotocol/horizon/contracts/libraries/PPMMath.sol\";",
+    "import { Allocation } from \"./libraries/Allocation.sol\";",
+    "import { IndexingAgreementDecoder } from \"./libraries/IndexingAgreementDecoder.sol\";",
+    "import { IndexingAgreement } from \"./libraries/IndexingAgreement.sol\";"
+  ],
+  "external_public_functions": [
+    {
+      "name": "initialize",
+      "visibility": "external",
+      "signature": "function initialize( address owner, uint256 minimumProvisionTokens, uint32 maximumDelegationRatio, uint256 stakeToFeesRatio_ ) external initializer"
+    },
+    {
+      "name": "register",
+      "visibility": "external",
+      "signature": "function register(address indexer, bytes calldata data) external override enforceService(indexer, VALID_PROVISION)"
+    },
+    {
+      "name": "acceptProvisionPendingParameters",
+      "visibility": "external",
+      "signature": "function acceptProvisionPendingParameters( address indexer, bytes calldata ) external override enforceService(indexer, DEFAULT)"
+    },
+    {
+      "name": "startService",
+      "visibility": "external",
+      "signature": "function startService( address indexer, bytes calldata data ) external override enforceService(indexer, VALID_PROVISION | REGISTERED)"
+    },
+    {
+      "name": "stopService",
+      "visibility": "external",
+      "signature": "function stopService(address indexer, bytes calldata data) external override enforceService(indexer, REGISTERED)"
+    },
+    {
+      "name": "collect",
+      "visibility": "external",
+      "signature": "function collect( address indexer, IGraphPayments.PaymentTypes paymentType, bytes calldata data ) external override enforceService(indexer, VALID_PROVISION | REGISTERED) returns (uint256)"
+    },
+    {
+      "name": "slash",
+      "visibility": "external",
+      "signature": "function slash(address indexer, bytes calldata data) external override onlyDisputeManager"
+    },
+    {
+      "name": "closeStaleAllocation",
+      "visibility": "external",
+      "signature": "function closeStaleAllocation(address allocationId) external override whenNotPaused"
+    },
+    {
+      "name": "resizeAllocation",
+      "visibility": "external",
+      "signature": "function resizeAllocation( address indexer, address allocationId, uint256 tokens ) external enforceService(indexer, VALID_PROVISION | REGISTERED)"
+    },
+    {
+      "name": "setPauseGuardian",
+      "visibility": "external",
+      "signature": "function setPauseGuardian(address pauseGuardian, bool allowed) external override onlyOwner"
+    },
+    {
+      "name": "setPaymentsDestination",
+      "visibility": "external",
+      "signature": "function setPaymentsDestination(address paymentsDestination_) external override"
+    },
+    {
+      "name": "setMinimumProvisionTokens",
+      "visibility": "external",
+      "signature": "function setMinimumProvisionTokens(uint256 minimumProvisionTokens) external override onlyOwner"
+    },
+    {
+      "name": "setDelegationRatio",
+      "visibility": "external",
+      "signature": "function setDelegationRatio(uint32 delegationRatio) external override onlyOwner"
+    },
+    {
+      "name": "setStakeToFeesRatio",
+      "visibility": "external",
+      "signature": "function setStakeToFeesRatio(uint256 stakeToFeesRatio_) external override onlyOwner"
+    },
+    {
+      "name": "setMaxPOIStaleness",
+      "visibility": "external",
+      "signature": "function setMaxPOIStaleness(uint256 maxPoiStaleness_) external override onlyOwner"
+    },
+    {
+      "name": "setCurationCut",
+      "visibility": "external",
+      "signature": "function setCurationCut(uint256 curationCut) external override onlyOwner"
+    },
+    {
+      "name": "setIndexingFeesCut",
+      "visibility": "external",
+      "signature": "function setIndexingFeesCut(uint256 indexingFeesCut_) external override onlyOwner"
+    },
+    {
+      "name": "setBlockClosingAllocationWithActiveAgreement",
+      "visibility": "external",
+      "signature": "function setBlockClosingAllocationWithActiveAgreement(bool enabled) external override onlyOwner"
+    },
+    {
+      "name": "acceptIndexingAgreement",
+      "visibility": "external",
+      "signature": "function acceptIndexingAgreement( address allocationId, IRecurringCollector.RecurringCollectionAgreement calldata rca, bytes calldata signature ) external enforceService(rca.serviceProvider, VALID_PROVISION | REGISTERED) returns (bytes16)"
+    },
+    {
+      "name": "updateIndexingAgreement",
+      "visibility": "external",
+      "signature": "function updateIndexingAgreement( address indexer, IRecurringCollector.RecurringCollectionAgreementUpdate calldata rcau, bytes calldata signature ) external enforceService(indexer, VALID_PROVISION | REGISTERED)"
+    },
+    {
+      "name": "cancelIndexingAgreement",
+      "visibility": "external",
+      "signature": "function cancelIndexingAgreement(address indexer, bytes16 agreementId) external enforceService(indexer, DEFAULT)"
+    },
+    {
+      "name": "cancelIndexingAgreementByPayer",
+      "visibility": "external",
+      "signature": "function cancelIndexingAgreementByPayer(bytes16 agreementId) external whenNotPaused"
+    },
+    {
+      "name": "getIndexingAgreement",
+      "visibility": "external",
+      "signature": "function getIndexingAgreement( bytes16 agreementId ) external view returns (IIndexingAgreement.AgreementWrapper memory)"
+    },
+    {
+      "name": "getAllocation",
+      "visibility": "external",
+      "signature": "function getAllocation(address allocationId) external view override returns (IAllocation.State memory)"
+    },
+    {
+      "name": "getAllocationData",
+      "visibility": "external",
+      "signature": "function getAllocationData( address allocationId ) external view override returns (bool, address, bytes32, uint256, uint256, uint256)"
+    },
+    {
+      "name": "getBlockClosingAllocationWithActiveAgreement",
+      "visibility": "external",
+      "signature": "function getBlockClosingAllocationWithActiveAgreement() external view override returns (bool enabled)"
+    },
+    {
+      "name": "getSubgraphAllocatedTokens",
+      "visibility": "external",
+      "signature": "function getSubgraphAllocatedTokens(bytes32 subgraphDeploymentId) external view override returns (uint256)"
+    },
+    {
+      "name": "getLegacyAllocation",
+      "visibility": "external",
+      "signature": "function getLegacyAllocation(address allocationId) external view override returns (ILegacyAllocation.State memory)"
+    },
+    {
+      "name": "getDisputeManager",
+      "visibility": "external",
+      "signature": "function getDisputeManager() external view override returns (address)"
+    },
+    {
+      "name": "getGraphTallyCollector",
+      "visibility": "external",
+      "signature": "function getGraphTallyCollector() external view override returns (address)"
+    },
+    {
+      "name": "getCuration",
+      "visibility": "external",
+      "signature": "function getCuration() external view override returns (address)"
+    },
+    {
+      "name": "encodeAllocationProof",
+      "visibility": "external",
+      "signature": "function encodeAllocationProof(address indexer, address allocationId) external view override returns (bytes32)"
+    },
+    {
+      "name": "isOverAllocated",
+      "visibility": "external",
+      "signature": "function isOverAllocated(address indexer) external view override returns (bool)"
+    }
+  ],
+  "modifiers": [
+    {
+      "name": "inlining",
+      "signature": "modifier inlining"
+    },
+    {
+      "name": "enforceService",
+      "signature": "modifier enforceService(address serviceProvider, uint256 requirements)"
+    }
+  ],
+  "access_control_words": [
+    "auth",
+    "authorize",
+    "authorized",
+    "controller",
+    "guardian",
+    "onlyowner",
+    "owner",
+    "pause"
+  ],
+  "accounting_value_words": [
+    "accounting",
+    "allocation",
+    "balance",
+    "claim",
+    "collect",
+    "fee",
+    "payment",
+    "reward",
+    "share",
+    "slash",
+    "stake",
+    "token"
+  ],
+  "notes": [
+    "Regex-only discovery for harness planning; this is not a security finding.",
+    "Use these hints to choose constructor args, mocks, actor roles, and one real invariant."
+  ],
+  "summary": {
+    "import_count": 25,
+    "external_public_function_count": 33,
+    "modifier_count": 2,
+    "has_constructor": true,
+    "has_access_control_hints": true,
+    "has_accounting_value_hints": true
+  }
+}

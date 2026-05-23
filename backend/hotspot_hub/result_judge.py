@@ -48,27 +48,35 @@ def judge_real_foundry_result(
     stderr = run_payload.get("stderr", "")
     combined = f"{stdout}\n{stderr}".lower()
     if run_payload["returncode"] == 0:
-        status = "clean"
-        if hypothesis_id.upper().startswith("SMOKE"):
-            rationale = "The real-contract compile smoke passed. No invariant failure was demonstrated."
-            next_action = "Replace the smoke test with a real setup, mocks, and invariant before drawing security conclusions."
-        else:
-            rationale = "The real-contract harness and local invariant passed. No issue was reproduced for this hypothesis."
-            next_action = "Record this hypothesis as rejected/clean and move to the next highest-value invariant."
-    elif "compiler run failed" in combined or "compilation failed" in combined or "error (" in combined:
-        status = "compile_failed"
-        rationale = "The real harness failed at compile/import/remapping time."
-        next_action = "Fix remappings or add mocks. Do not treat compile failures as security findings."
-    elif "constructor" in combined or "abstract contract" in combined:
+        status = "clean_compile_smoke"
+        rationale = "The real-contract compile smoke passed. No invariant failure or security impact was demonstrated."
+        next_action = "Replace the smoke test with real deployment setup, mocks, actors, and one local invariant."
+    elif "source not found" in combined or "file not found" in combined:
+        status = "harness_needs_import_remappings"
+        rationale = "The real harness could not resolve one or more imported source files."
+        next_action = "Fix Foundry remappings or dependency paths before adding behavior tests."
+    elif "wrong argument count" in combined or "no arguments passed to base constructor" in combined:
+        status = "harness_needs_constructor_args"
+        rationale = "The harness needs constructor or inherited constructor arguments before it can deploy the target."
+        next_action = "Add the required constructor arguments or proxy initializer wiring with local-only mocks."
+    elif "identifier not found" in combined or "member not found" in combined:
         status = "harness_needs_mocks"
-        rationale = "The harness compiled far enough to need target-specific setup or mocks."
-        next_action = "Add constructor parameters, mocks, or deployment setup."
+        rationale = "The real harness references symbols or members that need imports, mocks, interfaces, or setup wiring."
+        next_action = "Add minimal local mocks/interfaces and repair only the harness."
+    elif "constructor" in combined or "abstract contract" in combined:
+        status = "harness_needs_constructor_args"
+        rationale = "The harness compiled far enough to expose target-specific deployment requirements."
+        next_action = "Add constructor parameters, inherited setup, proxy initialization, or mocks."
     elif "invariant" in combined and ("fail" in combined or "revert" in combined):
         status = "invariant_failed_promising"
         rationale = "A real-harness invariant appears to have failed locally, but impact and setup still need review."
         next_action = "Minimize the failing case, map accepted impact, and run duplicate-risk checks."
+    elif "compiler run failed" in combined or "compilation failed" in combined or "error (" in combined:
+        status = "compile_failed"
+        rationale = "The real harness failed at compile time but did not match a more specific setup category."
+        next_action = "Inspect stdout/stderr and repair remappings, imports, constructor setup, or mocks."
     else:
-        status = "test_failed"
+        status = "runtime_test_failed"
         rationale = "The real harness test failed, but not in a way that can be classified as a promising invariant failure."
         next_action = "Inspect stdout/stderr and repair only the harness."
 
