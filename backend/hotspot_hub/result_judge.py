@@ -49,8 +49,12 @@ def judge_real_foundry_result(
     combined = f"{stdout}\n{stderr}".lower()
     if run_payload["returncode"] == 0:
         status = "clean"
-        rationale = "The real-contract compile smoke passed. No invariant failure was demonstrated."
-        next_action = "Replace the smoke test with a real setup, mocks, and invariant before drawing security conclusions."
+        if hypothesis_id.upper().startswith("SMOKE"):
+            rationale = "The real-contract compile smoke passed. No invariant failure was demonstrated."
+            next_action = "Replace the smoke test with a real setup, mocks, and invariant before drawing security conclusions."
+        else:
+            rationale = "The real-contract harness and local invariant passed. No issue was reproduced for this hypothesis."
+            next_action = "Record this hypothesis as rejected/clean and move to the next highest-value invariant."
     elif "compiler run failed" in combined or "compilation failed" in combined or "error (" in combined:
         status = "compile_failed"
         rationale = "The real harness failed at compile/import/remapping time."

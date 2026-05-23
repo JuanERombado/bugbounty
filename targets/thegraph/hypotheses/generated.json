@@ -1,0 +1,18 @@
+{
+  "provider": "canned",
+  "source_report": "queues\\examples\\hotspot-report.example.json",
+  "hypotheses": [
+    {
+      "id": "CANNED-001",
+      "source": "canned",
+      "hotspot_path": "packages/subgraph-service/contracts/libraries/IndexingAgreement.sol",
+      "title": "value-accounting invariant review for IndexingAgreement.sol",
+      "hypothesis": "Deposits, withdrawals, shares, rewards, or claims can drift from contract balance or protocol accounting after an edge-case sequence.",
+      "local_test_idea": "Run a local invariant over deposit/withdraw/claim/cancel sequences and assert conservation after every step.",
+      "rejection_rule": "Reject if a local test shows the invariant is already enforced or the behavior maps only to self-approved/user-error conditions.",
+      "report_ready": false
+    }
+  ],
+  "report_ready": false,
+  "safety_note": "Hypotheses are untrusted until local PoC or invariant evidence proves them."
+}

@@ -1,0 +1,16 @@
+{
+  "runner": "foundry",
+  "project_dir": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\test_fixtures\\vulnerable-vault",
+  "command": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\forge.exe",
+    "test",
+    "--match-contract",
+    "VulnerableVaultInvariantTest",
+    "-vv"
+  ],
+  "returncode": 1,
+  "elapsed_seconds": 0.442,
+  "stdout": "No files changed, compilation skipped\n\nRan 2 tests for test/VulnerableVaultInvariant.t.sol:VulnerableVaultInvariantTest\n[FAIL: BUG: vault balance no longer equals totalDeposits] testInvariant_VulnerableVault_AllDepositsWithdrawable() (gas: 463312)\n[FAIL: BUG: non-owner changed fee recipient] testInvariant_VulnerableVault_OnlyOwnerCanSetFeeRecipient() (gas: 397286)\nSuite result: FAILED. 0 passed; 2 failed; 0 skipped; finished in 6.86ms (3.77ms CPU time)\n\nRan 1 test suite in 12.56ms (6.86ms CPU time): 0 tests passed, 2 failed, 0 skipped (2 total tests)\n\nFailing tests:\nEncountered 2 failing tests in test/VulnerableVaultInvariant.t.sol:VulnerableVaultInvariantTest\n[FAIL: BUG: vault balance no longer equals totalDeposits] testInvariant_VulnerableVault_AllDepositsWithdrawable() (gas: 463312)\n[FAIL: BUG: non-owner changed fee recipient] testInvariant_VulnerableVault_OnlyOwnerCanSetFeeRecipient() (gas: 397286)\n\nEncountered a total of 2 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 2 failed tests\n",
+  "stderr": "",
+  "passed": false
+}

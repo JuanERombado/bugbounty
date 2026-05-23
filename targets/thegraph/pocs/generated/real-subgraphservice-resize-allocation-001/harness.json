@@ -1,0 +1,10 @@
+{
+  "run_id": "real-subgraphservice-resize-allocation-001",
+  "target": "thegraph",
+  "repo_root": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\external\\thegraph-contracts",
+  "contract_path": "packages/subgraph-service/contracts/SubgraphService.sol",
+  "contract_name": "SubgraphService",
+  "hypothesis_id": "RESIZE-ALLOCATION-001",
+  "status": "real_harness_generated",
+  "report_ready": false
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "real-2026-05-22T180919-subgraphservice-smoke-001",
+  "judged_at": "2026-05-22T18:09:21.939332+00:00",
+  "target": "thegraph",
+  "contract_name": "SubgraphService",
+  "hypothesis_id": "SMOKE-001",
+  "status": "clean",
+  "rationale": "The real-contract compile smoke passed. No invariant failure was demonstrated.",
+  "next_action": "Replace the smoke test with a real setup, mocks, and invariant before drawing security conclusions.",
+  "reproduced": false,
+  "report_ready": false,
+  "report_ready_false": true,
+  "safety_note": "Local real-harness result only. No live systems were tested."
+}

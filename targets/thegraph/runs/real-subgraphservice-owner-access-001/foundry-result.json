@@ -1,0 +1,14 @@
+{
+  "runner": "foundry",
+  "project_dir": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\targets\\thegraph\\pocs\\generated\\real-subgraphservice-owner-access-001",
+  "command": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\forge.exe",
+    "test",
+    "-vv"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 0.555,
+  "stdout": "No files changed, compilation skipped\n\nRan 2 tests for test/SubgraphServiceRealHarness.t.sol:SubgraphServiceRealHarnessTest\n[PASS] test_OWNER_ACCESS_001_nonOwnerCannotChangeEconomicSettings() (gas: 43397)\n[PASS] test_OWNER_ACCESS_001_ownerCanChangeEconomicSettings() (gas: 86090)\nSuite result: ok. 2 passed; 0 failed; 0 skipped; finished in 869.70\u00c2\u00b5s (335.90\u00c2\u00b5s CPU time)\n\nRan 1 test suite in 4.48ms (869.70\u00c2\u00b5s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)\n",
+  "stderr": "",
+  "passed": true
+}

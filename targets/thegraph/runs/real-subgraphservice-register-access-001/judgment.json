@@ -1,0 +1,14 @@
+{
+  "run_id": "real-subgraphservice-register-access-001",
+  "judged_at": "2026-05-22T23:26:11.734433+00:00",
+  "target": "thegraph",
+  "contract_name": "SubgraphService",
+  "hypothesis_id": "REGISTER-ACCESS-001",
+  "status": "clean",
+  "rationale": "The real-contract harness and local invariant passed. No issue was reproduced for this hypothesis.",
+  "next_action": "Record this hypothesis as rejected/clean and move to the next highest-value invariant.",
+  "reproduced": false,
+  "report_ready": false,
+  "report_ready_false": true,
+  "safety_note": "Local real-harness result only. No live systems were tested."
+}

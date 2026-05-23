@@ -16,6 +16,7 @@ DEFAULT_BASE_URL = "http://127.0.0.1:1234/v1"
 DEFAULT_MODEL = "qwen/qwen3.5-9b"
 DEFAULT_TEMPERATURE = 0.2
 DEFAULT_MAX_TOKENS = 1400
+DEFAULT_PING_MAX_TOKENS = 256
 
 
 def chat_completion(
@@ -42,9 +43,31 @@ def chat_completion(
     try:
         with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
             raw = response.read().decode("utf-8")
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Local LLM request failed: HTTP {exc.code} {exc.reason}: {detail}") from exc
     except urllib.error.URLError as exc:
         raise RuntimeError(f"Local LLM request failed: {exc}") from exc
     return json.loads(raw)
+
+
+def list_local_models(
+    base_url: str = DEFAULT_BASE_URL,
+    timeout_seconds: int = 30,
+) -> list[str]:
+    """Return model ids exposed by the local OpenAI-compatible server."""
+    request = urllib.request.Request(f"{base_url.rstrip('/')}/models", method="GET")
+    try:
+        with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+            raw = response.read().decode("utf-8")
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Local model list failed: HTTP {exc.code} {exc.reason}: {detail}") from exc
+    except urllib.error.URLError as exc:
+        raise RuntimeError(f"Local model list failed: {exc}") from exc
+
+    payload = json.loads(raw)
+    return [item["id"] for item in payload.get("data", []) if "id" in item]
 
 
 def ping_local_llm(
@@ -53,18 +76,33 @@ def ping_local_llm(
     timeout_seconds: int = 60,
 ) -> dict[str, Any]:
     """Run a small connectivity and response-shape check."""
+    available_models = list_local_models(base_url, timeout_seconds)
+    selected_model = model
+    if selected_model not in available_models and available_models:
+        selected_model = available_models[0]
+
     response = chat_completion(
         [
             {"role": "system", "content": "You are a concise local model health check."},
             {"role": "user", "content": "Reply with exactly: local model online"},
         ],
         base_url=base_url,
-        model=model,
+        model=selected_model,
         temperature=0.0,
-        max_tokens=128,
+        max_tokens=DEFAULT_PING_MAX_TOKENS,
         timeout_seconds=timeout_seconds,
     )
-    return normalize_response(response)
+    normalized = normalize_response(response)
+    normalized["available_models"] = available_models
+    normalized["requested_model"] = model
+    normalized["selected_model"] = selected_model
+    normalized["server_reachable"] = True
+    normalized["health_status"] = "online" if normalized["has_output"] else "reachable_no_output"
+    normalized["ping_note"] = (
+        "Some reasoning models return health-check text in reasoning_content before final content. "
+        "For this workbench, server reachability plus any model output is enough for ping."
+    )
+    return normalized
 
 
 def analyze_prompt_file(
@@ -145,6 +183,8 @@ def normalize_response(response: dict[str, Any]) -> dict[str, Any]:
     message = choice.get("message", {})
     content = message.get("content") or ""
     reasoning = message.get("reasoning_content") or ""
+    has_content = bool(content.strip())
+    has_reasoning = bool(reasoning.strip())
     return {
         "model": response.get("model"),
         "content": content,
@@ -152,7 +192,9 @@ def normalize_response(response: dict[str, Any]) -> dict[str, Any]:
         "finish_reason": choice.get("finish_reason"),
         "usage": response.get("usage", {}),
         "raw_id": response.get("id"),
-        "has_content": bool(content.strip()),
+        "has_content": has_content,
+        "has_reasoning_content": has_reasoning,
+        "has_output": has_content or has_reasoning,
     }
 
 

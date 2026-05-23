@@ -138,6 +138,46 @@ Generate a real-contract compile smoke harness:
 python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id SMOKE-001
 ```
 
+Run the first meaningful The Graph invariant slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id OWNER-ACCESS-001 --run-id real-subgraphservice-owner-access-001
+```
+
+This local-only harness deploys `SubgraphService` through an `ERC1967Proxy`, uses a mock Graph controller, and checks that non-owners cannot change economic settings while the owner can.
+
+First registration gate slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id REGISTER-ACCESS-001 --run-id real-subgraphservice-register-access-001
+```
+
+This local-only harness adds mock Horizon staking and dispute-manager dependencies, then checks that an authorized indexer with a valid provision can register while unauthorized or unprovisioned registration attempts revert.
+
+First allocation accounting slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id STARTSERVICE-ALLOCATION-001 --run-id real-subgraphservice-startservice-allocation-001
+```
+
+This local-only harness signs an allocation proof, starts service for a registered indexer, and checks that allocation state plus subgraph allocated-token accounting update exactly once.
+
+First allocation resize accounting slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id RESIZE-ALLOCATION-001 --run-id real-subgraphservice-resize-allocation-001
+```
+
+This local-only harness resizes a live allocation up and down, then checks allocation state, subgraph allocated-token accounting, and provision-lock accounting stay synchronized.
+
+First allocation close accounting slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id STOPSERVICE-ACCOUNTING-001 --run-id real-subgraphservice-stopservice-accounting-001
+```
+
+This local-only harness closes a live allocation through `stopService`, then checks the allocation is closed while subgraph allocated-token accounting and provision-lock accounting return to zero.
+
 Possible statuses include `compile_failed`, `harness_needs_mocks`, `test_failed`, `invariant_failed_promising`, and `clean`.
 
 Compile failures are harness work, not security findings.
@@ -186,6 +226,8 @@ Check LM Studio connectivity:
 ```powershell
 python -m backend.hotspot_hub.cli llm ping
 ```
+
+The ping command lists loaded local models, uses the requested model when available, and accepts `reasoning_content` as valid health-check output for reasoning models that do not emit final `content` during short pings.
 
 Generate a queue that sends hotspots to the local model:
 

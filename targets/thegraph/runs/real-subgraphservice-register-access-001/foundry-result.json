@@ -1,0 +1,14 @@
+{
+  "runner": "foundry",
+  "project_dir": "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\targets\\thegraph\\pocs\\generated\\real-subgraphservice-register-access-001",
+  "command": [
+    "C:\\Users\\jromb\\VibeCoded Projects\\bugbounty\\bug-bounty-workbench\\.tools\\foundry\\bin\\forge.exe",
+    "test",
+    "-vv"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 2.92,
+  "stdout": "Compiling 1 files with Solc 0.8.27\nSolc 0.8.27 finished in 2.27s\nCompiler run successful!\n\nRan 3 tests for test/SubgraphServiceRealHarness.t.sol:SubgraphServiceRealHarnessTest\n[PASS] test_REGISTER_ACCESS_001_authorizedIndexerCanRegisterAndSetPaymentDestination() (gas: 198653)\n[PASS] test_REGISTER_ACCESS_001_missingProvisionCannotRegister() (gas: 66018)\n[PASS] test_REGISTER_ACCESS_001_unauthorizedCallerCannotRegisterIndexer() (gas: 106844)\nSuite result: ok. 3 passed; 0 failed; 0 skipped; finished in 1.26ms (609.30\u00c2\u00b5s CPU time)\n\nRan 1 test suite in 4.40ms (1.26ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)\n",
+  "stderr": "",
+  "passed": true
+}
