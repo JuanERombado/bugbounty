@@ -170,6 +170,14 @@ python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph 
 
 This local-only harness resizes a live allocation up and down, then checks allocation state, subgraph allocated-token accounting, and provision-lock accounting stay synchronized.
 
+First allocation close accounting slice:
+
+```powershell
+python -m backend.hotspot_hub.cli validate real-foundry-slice --target thegraph --repo-root external/thegraph-contracts --contract-path packages/subgraph-service/contracts/SubgraphService.sol --contract-name SubgraphService --hypothesis-id STOPSERVICE-ACCOUNTING-001 --run-id real-subgraphservice-stopservice-accounting-001
+```
+
+This local-only harness closes a live allocation through `stopService`, then checks the allocation is closed while subgraph allocated-token accounting and provision-lock accounting return to zero.
+
 Possible statuses include `compile_failed`, `harness_needs_mocks`, `test_failed`, `invariant_failed_promising`, and `clean`.
 
 Compile failures are harness work, not security findings.
